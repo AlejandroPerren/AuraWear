@@ -1,14 +1,16 @@
 import express, { Request, Response} from "express"
 import swaggerUi from "swagger-ui-express";
 import Router from "./routes";
-
+import morgan from "morgan"
+import cors from "cors"
 
 const PORT = 8000
 
-//descargar y configuar Morgan, Eslint, Jest
+
 const server = express();
-
-
+server.use(morgan('tiny'));
+server.use(cors());
+server.use(express.json());
 server.use(
     "/docs",
     swaggerUi.serve,
