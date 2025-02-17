@@ -1,6 +1,6 @@
 import express, { Request, Response} from "express"
 import swaggerUi from "swagger-ui-express";
-import Router from "./routes";
+import Router from "../routes";
 import morgan from "morgan"
 import cors from "cors"
 
@@ -11,6 +11,8 @@ const server = express();
 server.use(morgan('tiny'));
 server.use(cors());
 server.use(express.json());
+
+
 server.use(
     "/docs",
     swaggerUi.serve,
@@ -23,8 +25,10 @@ server.use(
 
 
 
-server.use(Router);
+server.use("/api", Router);
 
-server.listen(PORT, () => {
-    console.log("Server is running on port", PORT);
-  });
+server.get("/",(req: Request, res: Response)=>{
+    res.redirect("/api")
+});
+
+export default server;

@@ -1,0 +1,185 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"ResultSetHeader": {
+				"properties": {
+					"constructor": {
+						"properties": {
+							"name": {
+								"type": "string",
+								"enum": [
+									"ResultSetHeader"
+								],
+								"nullable": false
+							}
+						},
+						"required": [
+							"name"
+						],
+						"type": "object"
+					},
+					"affectedRows": {
+						"type": "number",
+						"format": "double"
+					},
+					"fieldCount": {
+						"type": "number",
+						"format": "double"
+					},
+					"info": {
+						"type": "string"
+					},
+					"insertId": {
+						"type": "number",
+						"format": "double"
+					},
+					"serverStatus": {
+						"type": "number",
+						"format": "double"
+					},
+					"warningStatus": {
+						"type": "number",
+						"format": "double"
+					},
+					"changedRows": {
+						"type": "number",
+						"format": "double",
+						"deprecated": true
+					}
+				},
+				"required": [
+					"constructor",
+					"affectedRows",
+					"fieldCount",
+					"info",
+					"insertId",
+					"serverStatus",
+					"warningStatus",
+					"changedRows"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IFunctionResponse_ResultSetHeader_": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ResultSetHeader"
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUser": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string",
+						"enum": [
+							"customer",
+							"admin"
+						]
+					},
+					"created_at": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"email",
+					"password",
+					"role",
+					"created_at"
+				],
+				"type": "object",
+				"additionalProperties": true
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "server",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/api/auth/register": {
+			"post": {
+				"operationId": "RegisterUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_ResultSetHeader_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AuthController"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUser"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

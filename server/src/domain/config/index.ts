@@ -3,12 +3,14 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
+
+
 const connection = mysql.createConnection({
-  host: 'mysql.railway.internal',
-  user: 'root',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: 'railway',
-  port: 3306
+  port: 12308
 });
 
 connection.connect(err => {
@@ -16,4 +18,4 @@ connection.connect(err => {
   console.log('Conectado a Railway MySQL 🚀');
 });
 
-module.exports = connection;
+export default connection.promise();
