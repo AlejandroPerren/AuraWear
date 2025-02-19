@@ -7,7 +7,7 @@
     "build:prod": "NODE_ENV=production webpack --mode production",
     "start": "node dist/server.js",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon dist/server.js\" \"npm run swagger\"",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon build/server.js\" \"npm run swagger\"",
     "predev": "npm run swagger",
     "prebuild": "npm run swagger",
     "swagger": "tsoa spec",

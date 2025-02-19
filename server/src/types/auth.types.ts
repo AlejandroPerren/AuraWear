@@ -1,13 +1,13 @@
 
 export interface IUser {
-    id: number;
+    id?: number;
     name: string;
     email: string;
     password: string;
     address?: string;
     phone?: string;
-    role: 'customer' | 'admin';
-    created_at: string;
+    role?: 'customer' | 'admin';
+    created_at?: string;
 }
 
 export type TLogin = Pick<IUser, "email" | "password">

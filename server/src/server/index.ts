@@ -1,10 +1,10 @@
 import express, { Request, Response} from "express"
 import swaggerUi from "swagger-ui-express";
-import Router from "../routes";
+import router from "../routes";
 import morgan from "morgan"
 import cors from "cors"
 
-const PORT = 8000
+
 
 
 const server = express();
@@ -25,7 +25,7 @@ server.use(
 
 
 
-server.use("/api", Router);
+server.use("/api", router);
 
 server.get("/",(req: Request, res: Response)=>{
     res.redirect("/api")
