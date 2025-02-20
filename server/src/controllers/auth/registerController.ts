@@ -1,9 +1,10 @@
-import { Controller, Body, Post, Route, Tags } from "tsoa";
+import { Body, Post, Route, Tags } from "tsoa";
 import { IUser } from "../../types/auth.types";
-import { IAuthController, IFunctionResponse } from "../interfaces";
+import { IAuthController } from "../interfaces";
 import bcrypt  from "bcrypt"
 import {registerUserORM} from "../../domain/orm/auth.orm"
 import { ResultSetHeader } from "mysql2";
+import { IFunctionResponse } from "../../types/functions.types";
 
 
 //Controller of Authentication

@@ -7,6 +7,57 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"RowDataPacket": {
+				"properties": {
+					"constructor": {
+						"properties": {
+							"name": {
+								"type": "string",
+								"enum": [
+									"RowDataPacket"
+								],
+								"nullable": false
+							}
+						},
+						"required": [
+							"name"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"constructor"
+				],
+				"type": "object",
+				"additionalProperties": {}
+			},
+			"IFunctionResponse_RowDataPacket-Array-or-null_": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/RowDataPacket"
+						},
+						"type": "array",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
 			"ResultSetHeader": {
 				"properties": {
 					"constructor": {
@@ -122,12 +173,9 @@
 					}
 				},
 				"required": [
-					"id",
 					"name",
 					"email",
-					"password",
-					"role",
-					"created_at"
+					"password"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -144,6 +192,28 @@
 		"contact": {}
 	},
 	"paths": {
+		"/api/users": {
+			"get": {
+				"operationId": "GetAllUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_RowDataPacket-Array-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"getAllUsersController"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/api/auth/register": {
 			"post": {
 				"operationId": "RegisterUser",

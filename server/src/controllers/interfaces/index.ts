@@ -1,16 +1,15 @@
-import { ResultSetHeader } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { IUser } from "../../types/auth.types"
-
-export interface IFunctionResponse<T> {
-    status: number,
-    message: string,
-    error?: string ,
-    data?: T;
-}
+import { IFunctionResponse } from "../../types/functions.types";
 
 
 
 export interface IAuthController {
     //register Controller
     registerUser(user: IUser): Promise<IFunctionResponse<ResultSetHeader>>;
+}
+
+
+export interface IUsersController {
+    getAllUsers(): Promise<IFunctionResponse<RowDataPacket[] | null>>;
 }

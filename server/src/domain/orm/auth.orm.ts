@@ -30,5 +30,19 @@ export const loginUserORM = async (user: TLogin): Promise<RowDataPacket | null> 
     } catch (error) {
       throw new Error("Error en ORM " + error);
     }
-  
 };
+
+export const listOfUsers = async (): Promise<RowDataPacket[] | null> => {
+  try {
+    const [rows] = await connection.query<RowDataPacket[]>(
+      `SELECT * FROM users`
+    );
+    if(rows.length === 0) return null;
+
+    const foundUsers = rows;
+    return foundUsers
+
+  } catch (error) {
+    throw new Error("Error en ORM" + error);
+  }
+}
