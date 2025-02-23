@@ -13,7 +13,8 @@ authRouter.route("/register").post(async (req: Request, res: Response): Promise<
     const response = await controller.registerUser({ name, email, password, address, phone });
 
     if (response && response.status) {
-      res.status(response.status).json(response); 
+      res.status(response.status).json(response);
+      return;
     }
 
     res.status(500).json({
@@ -29,6 +30,7 @@ authRouter.route("/register").post(async (req: Request, res: Response): Promise<
     });
   }
 });
+
 
 
 
