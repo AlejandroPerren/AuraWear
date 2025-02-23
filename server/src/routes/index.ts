@@ -14,22 +14,24 @@ server.use("/", rootRouter);// http://localhost:8080/api/
 
 
 server.route("/")
-    .get(async(req: Request, res: Response): Promise<any> =>{
+    .get(async (req: Request, res: Response): Promise<void> => {
         try {
-            const response = await controller.getAllUsers()
-            
-            if (response && response.status) {
-                return res.status(response.status).json(response);
-              }
-        
-              res.status(500).json({
-                message: "Error al buscar usuarios",
-                Error,
-              });
-            } catch (error) {
-              console.log("Error in Router" + error);
-            }
-    })
+            const response = await controller.getAllUsers();
+
+            res.status(200).json({
+                status: 200,
+                message: "Usuarios obtenidos exitosamente",
+                data: response
+            });
+        } catch (error) {
+            console.error("Error in Router: ", error);
+            res.status(500).json({
+                status: 500,
+                message: "Error interno del servidor"
+            });
+        }
+    });
+
 
 
 
