@@ -1,26 +1,25 @@
-import { RowDataPacket } from "mysql2/promise";
-import connection from "../config/index";
-import { IUser } from "../../types/auth.types";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
 
-export const listOfUsersORM = async (): Promise<RowDataPacket[] | null> => {
+// Obtener todos los usuarios
+export const listOfUsersORM = async () => {
   try {
-    const [rows] = await connection.query<RowDataPacket[]>(`SELECT * FROM users`);
-    return rows.length > 0 ? rows : null;
+    const users = await prisma.user.findMany();
+    return users.length > 0 ? users : null;
   } catch (error) {
-    throw new Error("Error en ORM" + error);
+    throw new Error("Error en ORM: " + error);
   }
 };
 
-export const searchUserORM = async(email: string): Promise<RowDataPacket[] | null> =>{
+// Buscar usuario por email
+export const searchUserORM = async (email: string) => {
   try {
-  const [response] = await connection.query<RowDataPacket[]>(
-    `SELECT * FROM users WHERE email = ?`,
-    [email]
-  )
-  return response.length > 0 ? response : null;
-
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+    return user || null;
   } catch (error) {
-    throw new Error("Error en ORM " + error);
+    throw new Error("Error en ORM: " + error);
   }
-}
+};
