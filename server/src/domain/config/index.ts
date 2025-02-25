@@ -1,21 +1,22 @@
-import mysql from "mysql2"
-import dotenv from "dotenv"
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
-
-
-const connection = mysql.createConnection({
+const sequelize = new Sequelize("railway", process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: 'railway',
-  port: 12308
+  port: 12308,
+  dialect: "mysql",
+  logging: false,
 });
 
-connection.connect(err => {
-  if (err) throw err;
-  console.log('Conectado a Railway MySQL 🚀');
-});
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Conectado a Railway MySQL con Sequelize 🚀");
+  } catch (error) {
+    console.error("Error al conectar con la base de datos:", error);
+  }
+})();
 
-export default connection.promise();
+export default sequelize;

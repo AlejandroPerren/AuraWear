@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import authRouter from "./authRouter";
-import { getAllUsersController } from "../controllers/users/getAllUsersController";
+import { getAllUsersController } from "../controllers/users/UsersController";
 
 
 const server = express();
