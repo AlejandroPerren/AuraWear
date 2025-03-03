@@ -1,8 +1,8 @@
 import { Body, Post, Route, Tags } from "tsoa";
-import { IUser, TLogin } from "../../types/auth.types";
+import { IRegister, TLogin } from "../../types/auth.types";
 import { IAuthController } from "../interfaces";
 import bcrypt from "bcrypt";
-import { registerUserORM } from "../../domain/orm/auth.orm";
+import { loginUserORM, registerUserORM } from "../../domain/orm/auth.orm";
 import { IFunctionResponse } from "../../types/functions.types"
 import { UsersController } from "../users/UsersController";
 
@@ -13,7 +13,7 @@ const controllerUser = new UsersController();
 @Tags("AuthController")
 export class AuthController implements IAuthController {
   @Post("register")
-  public async registerUser(@Body() user: IUser): Promise<IFunctionResponse<IUser>> {
+  public async registerUser(@Body() user: IRegister): Promise<IFunctionResponse<IRegister>> {
     if (!user) {
       return { status: 400, message: "Datos inválidos" };
     }
@@ -39,38 +39,36 @@ export class AuthController implements IAuthController {
   }
 
   @Post("login")
-  public async loginUser(@Body() user: TLogin): Promise<IFunctionResponse<Omit<IUser, "password"> | null>> {
-    if (!user) {
-      return { status: 400, message: "Datos incorrectos" };
-    }
-
-    try {
-      const userData = await controllerUser.getOneUserByEmail(user.email);
-      if (!userData || userData.data === null) {
-        return { status: 401, message: "Credenciales incorrectas" };
+  public async loginUser(@Body() user: TLogin): Promise<IFunctionResponse<TLogin>> {
+  
+      if(!user){
+        return { status: 400, message: "Datos Invalidos"};
       }
 
-      const storedUser = userData.data;
-      // Comparar contraseñas
-      const passwordMatch = bcrypt.compareSync(user.password, storedUser.password);
-      if (!passwordMatch) {
-        return { status: 401, message: "Credenciales incorrectas" };
+    try{
+      const response = await loginUserORM(user);
+
+      if(response === null){
+        return {
+          status: 500,
+          message: "Error en los datos ingresados"
+        }
       }
 
-      // Retornar usuario sin contraseña
-      const { password, ...userWithoutPassword } = storedUser;
       return {
         status: 200,
-        message: "Inicio de sesión exitoso",
-        data: userWithoutPassword,
-      };
-    } catch (error) {
+        message: "Usuario Encontrado Correctamente",
+        data: response,
+      }
+
+    }catch(error) {
       console.error("Error en Login Controller", error);
       return {
         status: 500,
-        message: "Error en login",
+        message: "Error en el ingreso",
         error: error instanceof Error ? error.message : "Error desconocido",
       };
     }
-  }
+
+  } 
 }

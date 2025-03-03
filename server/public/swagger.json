@@ -7,31 +7,62 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"RowDataPacket": {
+			"_36_Enums.Role": {
+				"type": "string",
+				"enum": [
+					"customer",
+					"admin"
+				]
+			},
+			"DefaultSelection_Prisma._36_UserPayload_": {
 				"properties": {
-					"constructor": {
-						"properties": {
-							"name": {
-								"type": "string",
-								"enum": [
-									"RowDataPacket"
-								],
-								"nullable": false
-							}
-						},
-						"required": [
-							"name"
-						],
-						"type": "object"
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"role": {
+						"$ref": "#/components/schemas/_36_Enums.Role"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
 					}
 				},
 				"required": [
-					"constructor"
+					"createdAt",
+					"role",
+					"phone",
+					"address",
+					"password",
+					"email",
+					"id",
+					"name"
 				],
-				"type": "object",
-				"additionalProperties": {}
+				"type": "object"
 			},
-			"IFunctionResponse_RowDataPacket-Array-or-null_": {
+			"User": {
+				"$ref": "#/components/schemas/DefaultSelection_Prisma._36_UserPayload_",
+				"description": "Model User"
+			},
+			"IUser": {
+				"$ref": "#/components/schemas/User"
+			},
+			"IFunctionResponse_IUser-Array-or-null_": {
 				"properties": {
 					"status": {
 						"type": "number",
@@ -45,7 +76,7 @@
 					},
 					"data": {
 						"items": {
-							"$ref": "#/components/schemas/RowDataPacket"
+							"$ref": "#/components/schemas/IUser"
 						},
 						"type": "array",
 						"nullable": true
@@ -58,66 +89,7 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"ResultSetHeader": {
-				"properties": {
-					"constructor": {
-						"properties": {
-							"name": {
-								"type": "string",
-								"enum": [
-									"ResultSetHeader"
-								],
-								"nullable": false
-							}
-						},
-						"required": [
-							"name"
-						],
-						"type": "object"
-					},
-					"affectedRows": {
-						"type": "number",
-						"format": "double"
-					},
-					"fieldCount": {
-						"type": "number",
-						"format": "double"
-					},
-					"info": {
-						"type": "string"
-					},
-					"insertId": {
-						"type": "number",
-						"format": "double"
-					},
-					"serverStatus": {
-						"type": "number",
-						"format": "double"
-					},
-					"warningStatus": {
-						"type": "number",
-						"format": "double"
-					},
-					"changedRows": {
-						"type": "number",
-						"format": "double",
-						"deprecated": true
-					}
-				},
-				"required": [
-					"constructor",
-					"affectedRows",
-					"fieldCount",
-					"info",
-					"insertId",
-					"serverStatus",
-					"warningStatus",
-					"changedRows"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"IFunctionResponse_ResultSetHeader_": {
+			"IFunctionResponse_IUser-or-null_": {
 				"properties": {
 					"status": {
 						"type": "number",
@@ -130,7 +102,12 @@
 						"type": "string"
 					},
 					"data": {
-						"$ref": "#/components/schemas/ResultSetHeader"
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IUser"
+							}
+						],
+						"nullable": true
 					}
 				},
 				"required": [
@@ -140,12 +117,8 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"IUser": {
+			"Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__": {
 				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
 					"name": {
 						"type": "string"
 					},
@@ -160,22 +133,86 @@
 					},
 					"phone": {
 						"type": "string"
-					},
-					"role": {
-						"type": "string",
-						"enum": [
-							"customer",
-							"admin"
-						]
-					},
-					"created_at": {
-						"type": "string"
 					}
 				},
 				"required": [
 					"name",
 					"email",
+					"password",
+					"address",
+					"phone"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_User.role-or-createdAt-or-id_": {
+				"$ref": "#/components/schemas/Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"IRegister": {
+				"$ref": "#/components/schemas/Omit_User.role-or-createdAt-or-id_"
+			},
+			"IFunctionResponse_IRegister_": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/IRegister"
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Pick_User.email-or-password_": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
 					"password"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"TLogin": {
+				"$ref": "#/components/schemas/Pick_User.email-or-password_"
+			},
+			"IFunctionResponse_TLogin_": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/TLogin"
+					}
+				},
+				"required": [
+					"status",
+					"message"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -201,17 +238,48 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/IFunctionResponse_RowDataPacket-Array-or-null_"
+									"$ref": "#/components/schemas/IFunctionResponse_IUser-Array-or-null_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"getAllUsersController"
+					"UsersController"
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/api/userByEmail": {
+			"get": {
+				"operationId": "GetOneUserByEmail",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_IUser-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"UsersController"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "email",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/api/auth/register": {
@@ -223,7 +291,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/IFunctionResponse_ResultSetHeader_"
+									"$ref": "#/components/schemas/IFunctionResponse_IRegister_"
 								}
 							}
 						}
@@ -239,7 +307,39 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/IUser"
+								"$ref": "#/components/schemas/IRegister"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/auth/login": {
+			"post": {
+				"operationId": "LoginUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_TLogin_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AuthController"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TLogin"
 							}
 						}
 					}

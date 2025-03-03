@@ -12,8 +12,8 @@ model User {
   name      String
   email     String  @unique
   password  String
-  address   String?
-  phone     String?
+  address   String
+  phone     String
   role      Role    @default(customer)
   orders    Order[]
   createdAt DateTime @default(now())

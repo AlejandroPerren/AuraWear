@@ -1,15 +1,15 @@
 
-import { IUser, TLogin } from "../../types/auth.types"
+import { IRegister, IUser, TLogin } from "../../types/auth.types"
 import { IFunctionResponse } from "../../types/functions.types";
 
 
 
 export interface IAuthController {
     //register Controller
-    registerUser(user: IUser): Promise<IFunctionResponse<IUser>> 
+    registerUser(user: IRegister): Promise<IFunctionResponse<IRegister>> 
 
     //Login Controller
-    loginUser(user: TLogin): Promise<IFunctionResponse<Omit<IUser, "password"> | null>>
+    loginUser(user: TLogin): Promise<IFunctionResponse<TLogin>>
 }
 
 

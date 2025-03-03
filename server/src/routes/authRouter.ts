@@ -1,14 +1,15 @@
 import express, { Request, Response } from "express";
 import { AuthController } from "../controllers/auth/authController";
-import { IUser } from "../types/auth.types";
+import { IRegister } from "../types/auth.types";
 
 const authRouter = express.Router();
 
 const controller: AuthController = new AuthController();
 
-authRouter.route("/register").post(async (req: Request, res: Response): Promise<void> => {
+authRouter.route("/register")
+  .post(async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, email, password, address, phone }: IUser = req.body;
+    const { name, email, password, address, phone }: IRegister = req.body;
 
     const response = await controller.registerUser({ name, email, password, address, phone });
 
