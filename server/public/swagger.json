@@ -80,6 +80,9 @@
 						},
 						"type": "array",
 						"nullable": true
+					},
+					"token": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -108,6 +111,9 @@
 							}
 						],
 						"nullable": true
+					},
+					"token": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -149,10 +155,10 @@
 				"$ref": "#/components/schemas/Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__",
 				"description": "Construct a type with the properties of T except for those in type K."
 			},
-			"IRegister": {
+			"TRegister": {
 				"$ref": "#/components/schemas/Omit_User.role-or-createdAt-or-id_"
 			},
-			"IFunctionResponse_IRegister_": {
+			"IFunctionResponse_TRegister_": {
 				"properties": {
 					"status": {
 						"type": "number",
@@ -165,7 +171,10 @@
 						"type": "string"
 					},
 					"data": {
-						"$ref": "#/components/schemas/IRegister"
+						"$ref": "#/components/schemas/TRegister"
+					},
+					"token": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -208,6 +217,9 @@
 					},
 					"data": {
 						"$ref": "#/components/schemas/TLogin"
+					},
+					"token": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -291,7 +303,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/IFunctionResponse_IRegister_"
+									"$ref": "#/components/schemas/IFunctionResponse_TRegister_"
 								}
 							}
 						}
@@ -307,7 +319,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/IRegister"
+								"$ref": "#/components/schemas/TRegister"
 							}
 						}
 					}

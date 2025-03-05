@@ -1,19 +1,28 @@
 import { Body, Post, Route, Tags } from "tsoa";
-import { IRegister, TLogin } from "../../types/auth.types";
+import { TRegister, TLogin } from "../../types/auth.types";
 import { IAuthController } from "../interfaces";
 import bcrypt from "bcrypt";
 import { loginUserORM, registerUserORM } from "../../domain/orm/auth.orm";
-import { IFunctionResponse } from "../../types/functions.types"
+import { IFunctionResponse } from "../../types/functions.types";
 import { UsersController } from "../users/UsersController";
+import { searchUserORM } from "../../domain/orm/users.orm";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const controllerUser = new UsersController();
+
+const secretKey = process.env.TOKEN_JSON_KEY;
 
 //Controller of Authentication
 @Route("/api/auth")
 @Tags("AuthController")
 export class AuthController implements IAuthController {
   @Post("register")
-  public async registerUser(@Body() user: IRegister): Promise<IFunctionResponse<IRegister>> {
+  public async registerUser(
+    @Body() user: TRegister
+  ): Promise<IFunctionResponse<TRegister>> {
     if (!user) {
       return { status: 400, message: "Datos inválidos" };
     }
@@ -39,29 +48,53 @@ export class AuthController implements IAuthController {
   }
 
   @Post("login")
-  public async loginUser(@Body() user: TLogin): Promise<IFunctionResponse<TLogin>> {
-  
-      if(!user){
-        return { status: 400, message: "Datos Invalidos"};
+  public async loginUser(
+    @Body() user: TLogin
+  ): Promise<IFunctionResponse<TLogin>> {
+    if (!user || !user.email || !user.password) {
+      return { status: 400, message: "Email y contraseña son obligatorios" };
+    }
+
+    try {
+      const userData = await searchUserORM(user.email);
+
+      if (!userData) {
+        return { status: 400, message: "Datos incorrectos" };
       }
 
-    try{
-      const response = await loginUserORM(user);
+      const isValidPassword = await bcrypt.compare(
+        user.password,
+        userData.password
+      );
+      if (!isValidPassword) {
+        return { status: 400, message: "Datos incorrectos" };
+      }
 
-      if(response === null){
+      const response = await loginUserORM(userData);
+      if (!response) {
         return {
           status: 500,
-          message: "Error en los datos ingresados"
-        }
+          message: "Error al generar el token de autenticación",
+        };
+      }
+      if (!secretKey) {
+        throw new Error(
+          "TOKEN_JSON_KEY is not defined in environment variables"
+        );
       }
 
+      const token = jwt.sign(
+        { id: userData.id, email: userData.email },
+        secretKey,
+        { expiresIn: "7d" }
+      );
       return {
         status: 200,
-        message: "Usuario Encontrado Correctamente",
+        message: "Usuario autenticado correctamente",
         data: response,
-      }
-
-    }catch(error) {
+        token: token
+      };
+    } catch (error) {
       console.error("Error en Login Controller", error);
       return {
         status: 500,
@@ -69,6 +102,5 @@ export class AuthController implements IAuthController {
         error: error instanceof Error ? error.message : "Error desconocido",
       };
     }
-
-  } 
+  }
 }

@@ -4,5 +4,6 @@ export interface IFunctionResponse<T> {
     status: number,
     message: string,
     error?: string ,
-    data?: T;
+    data?: T,
+    token?: string;
 }

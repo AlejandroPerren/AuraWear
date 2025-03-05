@@ -9,5 +9,5 @@ export type IOrderDetail = OrderDetail;
 
 
 
-export type IRegister = Omit<User, "role" | "createdAt" | "id" >;
+export type TRegister = Omit<User, "role" | "createdAt" | "id" >;
 export type TLogin = Pick<User, "email" | "password">;

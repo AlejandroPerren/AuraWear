@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { IRegister, TLogin } from "../../types/auth.types";
+import { TRegister, TLogin } from "../../types/auth.types";
 
 const prisma = new PrismaClient();
 
-export const registerUserORM = async (user: IRegister) => {
+export const registerUserORM = async (user: TRegister) => {
   try {
     const newUser = await prisma.user.create({
       data: {

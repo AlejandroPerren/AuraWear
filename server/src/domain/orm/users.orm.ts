@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { IUser } from "../../types/auth.types";
 
 const prisma = new PrismaClient();
 
@@ -13,7 +14,7 @@ export const listOfUsersORM = async () => {
 };
 
 // Buscar usuario por email
-export const searchUserORM = async (email: string) => {
+export const searchUserORM = async (email: string): Promise<IUser | null> => {
   try {
     const user = await prisma.user.findUnique({
       where: { email },
