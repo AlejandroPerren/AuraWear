@@ -246,7 +246,7 @@
 				"operationId": "GetAllUsers",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "- List of users or null if no users found.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -256,6 +256,7 @@
 						}
 					}
 				},
+				"description": "Retrieves a list of all users.",
 				"tags": [
 					"UsersController"
 				],
@@ -268,7 +269,7 @@
 				"operationId": "GetOneUserByEmail",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "- User details or null if not found.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -278,12 +279,14 @@
 						}
 					}
 				},
+				"description": "Retrieves a user by email.",
 				"tags": [
 					"UsersController"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- User's email.",
 						"in": "query",
 						"name": "email",
 						"required": true,
@@ -299,7 +302,7 @@
 				"operationId": "RegisterUser",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "- Registration result.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -309,17 +312,20 @@
 						}
 					}
 				},
+				"description": "Registers a new user.",
 				"tags": [
 					"AuthController"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- User data.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/TRegister"
+								"$ref": "#/components/schemas/TRegister",
+								"description": "- User data."
 							}
 						}
 					}
@@ -331,7 +337,7 @@
 				"operationId": "LoginUser",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "- Login result with JWT token.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -341,17 +347,20 @@
 						}
 					}
 				},
+				"description": "Logs in a user.",
 				"tags": [
 					"AuthController"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- User credentials.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/TLogin"
+								"$ref": "#/components/schemas/TLogin",
+								"description": "- User credentials."
 							}
 						}
 					}

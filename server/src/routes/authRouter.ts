@@ -1,15 +1,17 @@
 import express, { Request, Response } from "express";
 import { AuthController } from "../controllers/auth/authController";
 import { TRegister, TLogin } from "../types/auth.types";
-import { token } from "morgan";
 
 const authRouter = express.Router();
-
 const controller: AuthController = new AuthController();
 
-authRouter
-  .route("/register")
-  .post(async (req: Request, res: Response): Promise<void> => {
+/**
+ * Route for user registration
+ * Handles the creation of a new user by receiving user data.
+ */
+authRouter.post(
+  "/register",
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const { name, email, password, address, phone }: TRegister = req.body;
 
@@ -28,20 +30,25 @@ authRouter
 
       res.status(500).json({
         status: 500,
-        message: "Error al registrar el usuario",
+        message: "Error registering the user",
       });
     } catch (error) {
       console.error("Error in Router:", error);
       res.status(500).json({
         status: 500,
-        message: "Error interno del servidor",
+        message: "Internal server error",
       });
     }
-  });
+  }
+);
 
-authRouter
-  .route("/login")
-  .post(async (req: Request, res: Response): Promise<void> => {
+/**
+ * Route for user login
+ * Handles user authentication and returns a JWT if successful.
+ */
+authRouter.post(
+  "/login",
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const { email, password }: TLogin = req.body;
 
@@ -57,16 +64,16 @@ authRouter
 
       res.status(500).json({
         status: 500,
-        message: "Error al Ingresar el usuario",
-        token: token
+        message: "Error logging in",
       });
     } catch (error) {
       console.error("Error in Router:", error);
       res.status(500).json({
         status: 500,
-        message: "Error interno del servidor",
+        message: "Internal server error",
       });
     }
-  });
+  }
+);
 
 export default authRouter;

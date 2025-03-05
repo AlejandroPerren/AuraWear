@@ -1,5 +1,5 @@
 {
-    "entryFile": "src/server/index.ts",
+    "entryFile": "server.ts",
     "controllerPathGlobs": ["src/controllers/**/*Controller.ts"],
     "spec": {
       "outputDirectory": "public",

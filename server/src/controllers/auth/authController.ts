@@ -4,10 +4,10 @@ import { IAuthController } from "../interfaces";
 import bcrypt from "bcrypt";
 import { loginUserORM, registerUserORM } from "../../domain/orm/auth.orm";
 import { IFunctionResponse } from "../../types/functions.types";
-import { UsersController } from "../users/UsersController";
 import { searchUserORM } from "../../domain/orm/users.orm";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { UsersController } from "../users/UsersController";
 
 dotenv.config();
 
@@ -15,16 +15,23 @@ const controllerUser = new UsersController();
 
 const secretKey = process.env.TOKEN_JSON_KEY;
 
-//Controller of Authentication
+/**
+ * AuthController handles user authentication and registration.
+ */
 @Route("/api/auth")
 @Tags("AuthController")
 export class AuthController implements IAuthController {
+  /**
+   * Registers a new user.
+   * @param {TRegister} user - User data.
+   * @returns {Promise<IFunctionResponse<TRegister>>} - Registration result.
+   */
   @Post("register")
   public async registerUser(
     @Body() user: TRegister
   ): Promise<IFunctionResponse<TRegister>> {
     if (!user) {
-      return { status: 400, message: "Datos inválidos" };
+      return { status: 400, message: "Invalid data" };
     }
 
     // Hash Password
@@ -34,32 +41,37 @@ export class AuthController implements IAuthController {
       const response = await registerUserORM(user);
       return {
         status: 200,
-        message: "Usuario creado exitosamente",
+        message: "User successfully created",
         data: response,
       };
     } catch (error) {
-      console.error("Error en Register Controller", error);
+      console.error("Error in Register Controller", error);
       return {
         status: 500,
-        message: "Error en el registro",
-        error: error instanceof Error ? error.message : "Error desconocido",
+        message: "Registration error",
+        error: error instanceof Error ? error.message : "Unknown error",
       };
     }
   }
 
+  /**
+   * Logs in a user.
+   * @param {TLogin} user - User credentials.
+   * @returns {Promise<IFunctionResponse<TLogin>>} - Login result with JWT token.
+   */
   @Post("login")
   public async loginUser(
     @Body() user: TLogin
   ): Promise<IFunctionResponse<TLogin>> {
     if (!user || !user.email || !user.password) {
-      return { status: 400, message: "Email y contraseña son obligatorios" };
+      return { status: 400, message: "Email and password are required" };
     }
 
     try {
       const userData = await searchUserORM(user.email);
 
       if (!userData) {
-        return { status: 400, message: "Datos incorrectos" };
+        return { status: 400, message: "Invalid credentials" };
       }
 
       const isValidPassword = await bcrypt.compare(
@@ -67,14 +79,14 @@ export class AuthController implements IAuthController {
         userData.password
       );
       if (!isValidPassword) {
-        return { status: 400, message: "Datos incorrectos" };
+        return { status: 400, message: "Invalid credentials" };
       }
 
       const response = await loginUserORM(userData);
       if (!response) {
         return {
           status: 500,
-          message: "Error al generar el token de autenticación",
+          message: "Error generating authentication token",
         };
       }
       if (!secretKey) {
@@ -90,16 +102,16 @@ export class AuthController implements IAuthController {
       );
       return {
         status: 200,
-        message: "Usuario autenticado correctamente",
+        message: "User successfully authenticated",
         data: response,
-        token: token
+        token: token,
       };
     } catch (error) {
-      console.error("Error en Login Controller", error);
+      console.error("Error in Login Controller", error);
       return {
         status: 500,
-        message: "Error en el ingreso",
-        error: error instanceof Error ? error.message : "Error desconocido",
+        message: "Login error",
+        error: error instanceof Error ? error.message : "Unknown error",
       };
     }
   }

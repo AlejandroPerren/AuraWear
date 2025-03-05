@@ -2,15 +2,13 @@ import express, { Request, Response } from "express";
 import authRouter from "./authRouter";
 import { UsersController } from "../controllers/users/UsersController";
 
+
 const server = express();
-
 const rootRouter = express.Router();
-
 const controller: UsersController = new UsersController();
 
-server.use("/", rootRouter); // http://localhost:8080/api/
-
-server.route("/").get(async (req: Request, res: Response): Promise<void> => {
+// Root API route to retrieve all users
+server.get("/", async (req: Request, res: Response): Promise<void> => {
   try {
     const response = await controller.getAllUsers();
 
@@ -20,14 +18,17 @@ server.route("/").get(async (req: Request, res: Response): Promise<void> => {
     }
 
     res.status(500).json({
-      message: "Error al buscar usuarios",
-      Error,
+      message: "Error retrieving users",
     });
   } catch (error) {
-    console.log("Error in Router" + error);
+    console.error("Error in Router:", error);
+    res.status(500).json({
+      message: "Internal server error",
+    });
   }
 });
 
-server.use("/auth", authRouter); // http://localhost:8080/api/auth  -->  authRouter
+// Authentication routes
+server.use("/auth", authRouter); // Routes under `/auth`
 
 export default server;
