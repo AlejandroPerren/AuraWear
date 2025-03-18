@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
  * @returns {Promise<IUser[] | null>} A list of users or null if no users are found.
  * @throws {Error} If there is an issue retrieving the users.
  */
-export const listOfUsersORM = async () => {
+export const listOfUsersORM = async (): Promise<IUser[] | null> => {
   try {
     const users = await prisma.user.findMany();
     return users.length > 0 ? users : null;
@@ -47,13 +47,8 @@ export const deleteUserORM = async (id: number): Promise<null> => {
     await prisma.user.delete({
       where: { id },
     });
-    return null; 
-  } catch (error: any) {
-    if (error.code === "P2025") {
-      throw new Error(`User with ID ${id} not found.`);
-    }
-    throw new Error("Error deleting user: " + error.message);
+    return null;
+  } catch (error) {
+    throw new Error("Error in ORM " + error);
   }
 };
-
-

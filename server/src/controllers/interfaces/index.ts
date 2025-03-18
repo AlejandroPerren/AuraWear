@@ -4,6 +4,7 @@ import {
   ILogin,
   IProduct,
   ICreateProduct,
+  ICategory,
 } from "../../types/index.types";
 import { IFunctionResponse } from "../../types/functions.types";
 
@@ -37,4 +38,14 @@ export interface IProductController {
   updateProduct(productId:string , product: IProduct): Promise<IFunctionResponse<ICreateProduct>>;
 
   deleteProductById(id: number): Promise<IFunctionResponse<null>>;
+}
+
+export interface ICategoryController{
+
+  getAllCategories(): Promise<IFunctionResponse<ICategory[] | null>>;
+
+  createCategory(category: string): Promise<IFunctionResponse<ICategory>>;
+
+  deleteCategory(id: number): Promise<IFunctionResponse<null>>;
+
 }

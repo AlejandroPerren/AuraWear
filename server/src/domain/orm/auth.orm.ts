@@ -17,8 +17,8 @@ export const registerUserORM = async (user: IRegister) => {
         name: user.name,
         email: user.email,
         password: user.password,
-        address: user.address || null,
-        phone: user.phone || null,
+        address: user.address ,
+        phone: user.phone ,
       },
     });
     return newUser;

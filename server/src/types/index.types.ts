@@ -10,4 +10,9 @@ export type IOrderDetail = OrderDetail;
 export type IRegister = Omit<User, "role" | "createdAt" | "id" >;
 export type ILogin = Pick<User, "email" | "password">;
 
-export type ICreateProduct = Omit<IProduct, "createdAt"> & Partial<Pick<IProduct, "id">>;
+export type ICreateProduct = Omit<IProduct, "createdAt"> & {
+    id?: number;
+    price: number | string; 
+    images: string[];
+  };
+
