@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { IUser } from "../../types/auth.types";
-
+import { IUser } from "../../types/index.types";
+import { ParamsDictionary } from "express-serve-static-core";
 const prisma = new PrismaClient();
 /**
  * Retrieves a list of all users from the database.
@@ -34,3 +34,26 @@ export const searchUserORM = async (email: string): Promise<IUser | null> => {
     throw new Error("Error in ORM: " + error);
   }
 };
+
+/**
+ * Deletes a user from the database by their ID.
+ *
+ * @param {number} id - The ID of the user to be deleted.
+ * @returns {Promise<null>} Resolves to `null` if deletion is successful.
+ * @throws {Error} If the user is not found or the operation fails.
+ */
+export const deleteUserORM = async (id: number): Promise<null> => {
+  try {
+    await prisma.user.delete({
+      where: { id },
+    });
+    return null; 
+  } catch (error: any) {
+    if (error.code === "P2025") {
+      throw new Error(`User with ID ${id} not found.`);
+    }
+    throw new Error("Error deleting user: " + error.message);
+  }
+};
+
+

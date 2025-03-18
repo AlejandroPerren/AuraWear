@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { AuthController } from "../controllers/auth/authController";
-import { TRegister, TLogin } from "../types/auth.types";
+import { IRegister, ILogin } from "../types/index.types";
 
 const authRouter = express.Router();
 const controller: AuthController = new AuthController();
@@ -13,7 +13,7 @@ authRouter.post(
   "/register",
   async (req: Request, res: Response): Promise<void> => {
     try {
-      const { name, email, password, address, phone }: TRegister = req.body;
+      const { name, email, password, address, phone }: IRegister = req.body;
 
       const response = await controller.registerUser({
         name,
@@ -50,7 +50,7 @@ authRouter.post(
   "/login",
   async (req: Request, res: Response): Promise<void> => {
     try {
-      const { email, password }: TLogin = req.body;
+      const { email, password }: ILogin = req.body;
 
       const response = await controller.loginUser({
         email,

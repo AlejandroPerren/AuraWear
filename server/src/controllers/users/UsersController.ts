@@ -1,8 +1,8 @@
-import { Get, Route, Tags, Query } from "tsoa";
+import { Get, Route, Tags, Query, Delete } from "tsoa";
 import { IUsersController } from "../interfaces";
-import { listOfUsersORM, searchUserORM } from "../../domain/orm/users.orm";
+import { deleteUserORM, listOfUsersORM, searchUserORM } from "../../domain/orm/users.orm";
 import { IFunctionResponse } from "../../types/functions.types";
-import { IUser } from "../../types/auth.types";
+import { IUser } from "../../types/index.types";
 
 /**
  * UsersController handles user-related operations.
@@ -58,4 +58,25 @@ export class UsersController implements IUsersController {
       };
     }
   }
+
+  @Delete("UserById")
+  public async delteUserByID(id: number): Promise<IFunctionResponse<null>> {
+      try {
+        const numberid = Number(id)
+        const response = await deleteUserORM(numberid);
+        return {
+          status: 200,
+          message: "User Delete",
+        }
+      } catch (error) {
+        console.error("Error in DeleteUserById", error);
+        return{
+          status: 500,
+          message: "Error Delete user",
+          error: error instanceof Error ? error.message : "Unknown error",
+        };
+      }
+   
+  }
+
 }

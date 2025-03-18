@@ -1,6 +1,5 @@
 import { User, Category, Product, Order, OrderDetail } from "@prisma/client";
 
-
 export type IUser = User;
 export type ICategory = Category;
 export type IProduct = Product;
@@ -8,6 +7,7 @@ export type IOrder = Order;
 export type IOrderDetail = OrderDetail;
 
 
+export type IRegister = Omit<User, "role" | "createdAt" | "id" >;
+export type ILogin = Pick<User, "email" | "password">;
 
-export type TRegister = Omit<User, "role" | "createdAt" | "id" >;
-export type TLogin = Pick<User, "email" | "password">;
+export type ICreateProduct = Omit<IProduct, "createdAt"> & Partial<Pick<IProduct, "id">>;

@@ -1,5 +1,5 @@
 import { Body, Post, Route, Tags } from "tsoa";
-import { TRegister, TLogin } from "../../types/auth.types";
+import { IRegister, ILogin } from "../../types/index.types";
 import { IAuthController } from "../interfaces";
 import bcrypt from "bcrypt";
 import { loginUserORM, registerUserORM } from "../../domain/orm/auth.orm";
@@ -23,13 +23,13 @@ const secretKey = process.env.TOKEN_JSON_KEY;
 export class AuthController implements IAuthController {
   /**
    * Registers a new user.
-   * @param {TRegister} user - User data.
-   * @returns {Promise<IFunctionResponse<TRegister>>} - Registration result.
+   * @param {IRegister} user - User data.
+   * @returns {Promise<IFunctionResponse<IRegister>>} - Registration result.
    */
   @Post("register")
   public async registerUser(
-    @Body() user: TRegister
-  ): Promise<IFunctionResponse<TRegister>> {
+    @Body() user: IRegister
+  ): Promise<IFunctionResponse<IRegister>> {
     if (!user) {
       return { status: 400, message: "Invalid data" };
     }
@@ -56,13 +56,13 @@ export class AuthController implements IAuthController {
 
   /**
    * Logs in a user.
-   * @param {TLogin} user - User credentials.
-   * @returns {Promise<IFunctionResponse<TLogin>>} - Login result with JWT token.
+   * @param {ILogin} user - User credentials.
+   * @returns {Promise<IFunctionResponse<ILogin>>} - Login result with JWT token.
    */
   @Post("login")
   public async loginUser(
-    @Body() user: TLogin
-  ): Promise<IFunctionResponse<TLogin>> {
+    @Body() user: ILogin
+  ): Promise<IFunctionResponse<ILogin>> {
     if (!user || !user.email || !user.password) {
       return { status: 400, message: "Email and password are required" };
     }

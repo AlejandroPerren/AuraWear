@@ -1,16 +1,16 @@
 import { PrismaClient } from "@prisma/client";
-import { TRegister, TLogin } from "../../types/auth.types";
+import { IRegister, ILogin } from "../../types/index.types";
 
 const prisma = new PrismaClient();
 
 /**
  * Registers a new user in the database.
  *
- * @param {TRegister} user - The user data to be registered.
+ * @param {IRegister} user - The user data to be registered.
  * @returns {Promise<IUser>} The newly created user.
  * @throws {Error} If there is an issue creating the user.
  */
-export const registerUserORM = async (user: TRegister) => {
+export const registerUserORM = async (user: IRegister) => {
   try {
     const newUser = await prisma.user.create({
       data: {
@@ -30,11 +30,11 @@ export const registerUserORM = async (user: TRegister) => {
 /**
  * Authenticates a user by checking their email and password.
  *
- * @param {TLogin} user - The login credentials.
+ * @param {ILogin} user - The login credentials.
  * @returns {Promise<IUser | null>} The user object if authentication is successful, otherwise null.
  * @throws {Error} If there is an issue during authentication.
  */
-export const loginUserORM = async (user: TLogin) => {
+export const loginUserORM = async (user: ILogin) => {
   try {
     const foundUser = await prisma.user.findUnique({
       where: {
