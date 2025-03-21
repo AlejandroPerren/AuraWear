@@ -1,7 +1,7 @@
 import { User, Category, Product, Order, OrderDetail } from "@prisma/client";
 
 export type IUser = User;
-export type ICategory = Category;
+export type ICategory = Omit<Category, "id">;
 export type IProduct = Product;
 export type IOrder = Order;
 export type IOrderDetail = OrderDetail;

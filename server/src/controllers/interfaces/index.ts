@@ -22,7 +22,7 @@ export interface IUsersController {
   //Get One User By Id
   getOneUserByEmail(email: string): Promise<IFunctionResponse<IUser | null>>;
   //Delete User By Id
-  delteUserByID(id: number): Promise<IFunctionResponse<null>>;
+  deleteUserByID(id: number): Promise<IFunctionResponse<null>>;
 
 }
 
@@ -44,7 +44,7 @@ export interface ICategoryController{
 
   getAllCategories(): Promise<IFunctionResponse<ICategory[] | null>>;
 
-  createCategory(category: string): Promise<IFunctionResponse<ICategory>>;
+  createCategory(category: ICategory): Promise<IFunctionResponse<ICategory>>;
 
   deleteCategory(id: number): Promise<IFunctionResponse<null>>;
 

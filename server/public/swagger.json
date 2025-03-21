@@ -123,6 +123,111 @@
 				"type": "object",
 				"additionalProperties": true
 			},
+			"IFunctionResponse_null_": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Pick_Category.Exclude_keyofCategory.id__": {
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_Category.id_": {
+				"$ref": "#/components/schemas/Pick_Category.Exclude_keyofCategory.id__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"ICategory": {
+				"$ref": "#/components/schemas/Omit_Category.id_"
+			},
+			"IFunctionResponse_ICategory_": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ICategory"
+					},
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IFunctionResponse_ICategory-Array-or-null_": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/ICategory"
+						},
+						"type": "array",
+						"nullable": true
+					},
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
 			"Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__": {
 				"properties": {
 					"name": {
@@ -155,10 +260,10 @@
 				"$ref": "#/components/schemas/Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__",
 				"description": "Construct a type with the properties of T except for those in type K."
 			},
-			"TRegister": {
+			"IRegister": {
 				"$ref": "#/components/schemas/Omit_User.role-or-createdAt-or-id_"
 			},
-			"IFunctionResponse_TRegister_": {
+			"IFunctionResponse_IRegister_": {
 				"properties": {
 					"status": {
 						"type": "number",
@@ -171,7 +276,7 @@
 						"type": "string"
 					},
 					"data": {
-						"$ref": "#/components/schemas/TRegister"
+						"$ref": "#/components/schemas/IRegister"
 					},
 					"token": {
 						"type": "string"
@@ -200,10 +305,10 @@
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"TLogin": {
+			"ILogin": {
 				"$ref": "#/components/schemas/Pick_User.email-or-password_"
 			},
-			"IFunctionResponse_TLogin_": {
+			"IFunctionResponse_ILogin_": {
 				"properties": {
 					"status": {
 						"type": "number",
@@ -216,7 +321,7 @@
 						"type": "string"
 					},
 					"data": {
-						"$ref": "#/components/schemas/TLogin"
+						"$ref": "#/components/schemas/ILogin"
 					},
 					"token": {
 						"type": "string"
@@ -292,6 +397,132 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						},
+						"example": "john@example.com"
+					}
+				]
+			}
+		},
+		"/api/UserById/{id}": {
+			"delete": {
+				"operationId": "DeleteUserByID",
+				"responses": {
+					"200": {
+						"description": "- Status of the deletion.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Deletes a user by ID.",
+				"tags": [
+					"UsersController"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- User ID.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						},
+						"example": 1
+					}
+				]
+			}
+		},
+		"/api/category": {
+			"post": {
+				"operationId": "CreateCategory",
+				"responses": {
+					"200": {
+						"description": "- The created category.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_ICategory_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a new category.",
+				"tags": [
+					"Category"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- Category data.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ICategory",
+								"description": "- Category data."
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAllCategories",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_ICategory-Array-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves all categories.",
+				"tags": [
+					"Category"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/category/{id}": {
+			"delete": {
+				"operationId": "DeleteCategory",
+				"responses": {
+					"200": {
+						"description": "- Status of the deletion.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Deletes a category by ID.",
+				"tags": [
+					"Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- Category ID.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]
@@ -306,7 +537,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/IFunctionResponse_TRegister_"
+									"$ref": "#/components/schemas/IFunctionResponse_IRegister_"
 								}
 							}
 						}
@@ -324,7 +555,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/TRegister",
+								"$ref": "#/components/schemas/IRegister",
 								"description": "- User data."
 							}
 						}
@@ -341,7 +572,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/IFunctionResponse_TLogin_"
+									"$ref": "#/components/schemas/IFunctionResponse_ILogin_"
 								}
 							}
 						}
@@ -359,7 +590,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/TLogin",
+								"$ref": "#/components/schemas/ILogin",
 								"description": "- User credentials."
 							}
 						}

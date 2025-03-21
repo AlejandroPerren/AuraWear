@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import authRouter from "./authRouter";
 import { UsersController } from "../controllers/users/UsersController";
 import userRouter from "./userRoute";
-
+import categoryRouter from "./categoryRouter";
 
 const server = express();
 const rootRouter = express.Router();
@@ -33,7 +33,10 @@ server.get("/", async (req: Request, res: Response): Promise<void> => {
 server.use("/auth", authRouter); // Routes under `/auth`
 
 // Users Routes
-server.use("/users", userRouter)
+server.use("/users", userRouter);
+
+// Category Routes
+server.use("/category", categoryRouter);
 
 
 export default server;

@@ -11,13 +11,12 @@ const prisma = new PrismaClient();
  * @throws {Error} If there is an issue creating the category.
  */
 
-export const createCategoryORM = async (category: string)=>{
+export const createCategoryORM = async (category: ICategory): Promise<ICategory>=>{
     try {
         const newCategory = await prisma.category.create({
-            data: {
-                name: category
-            }
+            data: category
         })
+        return newCategory;
     }catch (error) {
         throw new Error("Error in ORM " + error);
       }

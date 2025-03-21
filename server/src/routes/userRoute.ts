@@ -59,7 +59,7 @@ userRouter
             const id = req.params.id;
             const numberId = Number(id)
             console.log(numberId)
-            const response = await controller.delteUserByID(numberId);
+            const response = await controller.deleteUserByID(numberId);
             if (response && response.status) {
                 res.status(response.status).json(response);
                 return;

@@ -37,6 +37,12 @@ export class UsersController implements IUsersController {
    * Retrieves a user by email.
    * @param {string} email - User's email.
    * @returns {Promise<IFunctionResponse<IUser | null>>} - User details or null if not found.
+   * @example email "john@example.com"
+   * @example response - {
+   *   "status": 200,
+   *   "message": "User found",
+   *   "data": { "id": 1, "name": "John Doe", "email": "john@example.com" }
+   * }
    */
   @Get("userByEmail")
   public async getOneUserByEmail(
@@ -59,24 +65,31 @@ export class UsersController implements IUsersController {
     }
   }
 
-  @Delete("UserById")
-  public async delteUserByID(id: number): Promise<IFunctionResponse<null>> {
-      try {
-        const numberid = Number(id)
-        const response = await deleteUserORM(numberid);
-        return {
-          status: 200,
-          message: "User Delete",
-        }
-      } catch (error) {
-        console.error("Error in DeleteUserById", error);
-        return{
-          status: 500,
-          message: "Error Delete user",
-          error: error instanceof Error ? error.message : "Unknown error",
-        };
-      }
-   
+  /**
+   * Deletes a user by ID.
+   * @param {number} id - User ID.
+   * @returns {Promise<IFunctionResponse<null>>} - Status of the deletion.
+   * @example id 1
+   * @example response - {
+   *   "status": 200,
+   *   "message": "User Deleted"
+   * }
+   */
+  @Delete("UserById/{id}")
+  public async deleteUserByID(id: number): Promise<IFunctionResponse<null>> {
+    try {
+      await deleteUserORM(id);
+      return {
+        status: 200,
+        message: "User Deleted",
+      };
+    } catch (error) {
+      console.error("Error in DeleteUserById", error);
+      return {
+        status: 500,
+        message: "Error deleting user",
+        error: error instanceof Error ? error.message : "Unknown error",
+      };
+    }
   }
-
 }
