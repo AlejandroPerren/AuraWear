@@ -10,7 +10,7 @@ const navItems = [
 
 const NavInfo = () => {
   return (
-    <div className="flex justify-between items-center p-4">
+    <div className="flex justify-between items-center p-2">
       <div className="flex gap-6">
         <h3>Envios Gratis a partir de $300.000</h3>
         <h3>3, 6 y 9 Cuotas Sin Interes</h3>

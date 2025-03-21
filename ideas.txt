@@ -5,3 +5,5 @@ agregar ofertas
 cuando borras un usuario revisar que no tenga deudas o productos pendientes
 
 unificar mensajes de error
+
+cargar imagen de publicidad admin
