@@ -1,4 +1,3 @@
-
 import { Outlet } from "react-router-dom";
 import NavInfo from "../components/users/NavInfo";
 import NavBar from "../components/users/NavBar";
@@ -6,19 +5,17 @@ import NavBar from "../components/users/NavBar";
 const MainLayout = () => {
   return (
     <div>
-        <NavInfo/>
+      <NavInfo />
 
-        <NavBar />
-        <div className="bg-[url('/bg.jpg')] bg-cover bg-center min- w-full flex flex-col items-center justify-center">
-       
-           <h1 className="text-white text-6xl font-extrabold text-center mt-4">
-                Aura Wear
-          </h1>
-</div>
+      <NavBar />
 
+      <div className="flex justify-center items-center md:m-8 2xl:m-10 mx-4">
+        <img
+          src="/img/bg.jpg"
+          className="w-full max-w-[1600px] h-[50vh] object-cover object-top rounded-lg"
+        />
+      </div>
 
-       
-       
       <main>
         <Outlet />
       </main>
