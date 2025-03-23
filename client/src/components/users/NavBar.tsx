@@ -14,7 +14,7 @@ const NavBar = () => {
   return (
     <div className="bg-black text-white flex p-3 font-bold justify-between text-xl">
         <div className="flex">
-            <h2 className="mx-5">Logo</h2>
+            <img src="/img/logo.avif" className="mx-5 h-10 w-14"></img>
             <div className="flex gap-6">
                 {
                     navSections.map(({name}, index)=>(
