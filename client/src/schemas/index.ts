@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 export const userSchema = yup.object().shape({
-  _id: yup.number().optional(), 
+  id: yup.number().optional(), 
   name: yup
     .string()
     .trim()
@@ -28,12 +28,11 @@ export const userSchema = yup.object().shape({
   phone: yup
     .string()
     .matches(/^\+?\d{7,15}$/, "El teléfono debe ser válido (7-15 dígitos)")
-    .required('El teléfono es necesario')
+    .required('El teléfono es necesario'),
+  role: yup
+  .string()
+  .optional(),
+  createdAt: yup
+  .string()
+  .optional()
 });
-
-
-// name,
-// email,
-// password,
-// address,
-// phone,

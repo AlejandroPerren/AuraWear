@@ -40,7 +40,7 @@ export class AuthController implements IAuthController {
     try {
       const response = await registerUserORM(user);
       return {
-        status: 200,
+        status: 201,
         message: "User successfully created",
         data: response,
       };
@@ -101,7 +101,7 @@ export class AuthController implements IAuthController {
         { expiresIn: "7d" }
       );
       return {
-        status: 200,
+        status: 201,
         message: "User successfully authenticated",
         data: response,
         token: token,
