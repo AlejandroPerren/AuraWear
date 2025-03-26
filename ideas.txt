@@ -9,3 +9,6 @@ unificar mensajes de error
 cargar imagen de publicidad admin
 
 chatbot
+
+
+agregar Token al Registro

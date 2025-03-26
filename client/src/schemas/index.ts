@@ -1,0 +1,39 @@
+import * as yup from 'yup';
+
+export const userSchema = yup.object().shape({
+  _id: yup.number().optional(), 
+  name: yup
+    .string()
+    .trim()
+    .matches(/^[a-zA-Z\s]+$/, "El nombre solo puede contener letras y espacios")
+    .required('El nombre es necesario'),
+  email: yup
+    .string()
+    .trim()
+    .email('Ingrese un correo válido')
+    .required('El correo electrónico es necesario'),
+  password: yup
+    .string()
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
+    .matches(/[A-Z]/, 'Debe contener al menos una mayúscula')
+    .matches(/[a-z]/, 'Debe contener al menos una minúscula')
+    .matches(/[0-9]/, 'Debe contener al menos un número')
+    .matches(/[\W_]/, 'Debe contener al menos un carácter especial')
+    .required('La contraseña es necesaria'),
+  address: yup
+    .string()
+    .trim()
+    .min(5, 'La dirección debe ser válida')
+    .required('La dirección es necesaria'),
+  phone: yup
+    .string()
+    .matches(/^\+?\d{7,15}$/, "El teléfono debe ser válido (7-15 dígitos)")
+    .required('El teléfono es necesario')
+});
+
+
+// name,
+// email,
+// password,
+// address,
+// phone,
