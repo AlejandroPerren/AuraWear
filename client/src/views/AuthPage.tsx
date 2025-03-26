@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
+import Login from "../components/auth/Login";
+import SignUp from "../components/auth/SignUp";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isVisible, setIsVisible] = useState(window.innerWidth >= 1024);
+
+  const handleChangeForm = () => {
+    //TODO: Mandar al contexto
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,6 +27,7 @@ const AuthPage = () => {
           style={{ backgroundImage: "url(/img/womanAuth.jpg)" }}
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>
+          <Login/>
         </div>
       ) : null}
 
@@ -30,6 +37,7 @@ const AuthPage = () => {
           style={{ backgroundImage: "url(/img/manAuth.jpg)" }}
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>
+          <SignUp/>
         </div>
       ) : null}
     </div>
