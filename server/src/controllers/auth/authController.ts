@@ -96,7 +96,7 @@ export class AuthController implements IAuthController {
       }
 
       const token = jwt.sign(
-        { id: userData.id, email: userData.email },
+        { id: userData.id, email: userData.email, role: userData.role },
         secretKey,
         { expiresIn: "7d" }
       );

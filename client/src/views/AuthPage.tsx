@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Login from "../components/auth/Login";
 import SignUp from "../components/auth/SignUp";
+import { useAppStore } from "../store/useAppStore";
 
 const AuthPage = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const {isLogin} = useAppStore();
   const [isVisible, setIsVisible] = useState(window.innerWidth >= 1024);
 
   useEffect(() => {

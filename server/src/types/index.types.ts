@@ -15,4 +15,3 @@ export type ICreateProduct = Omit<IProduct, "createdAt"> & {
     price: number | string; 
     images: string[];
   };
-

@@ -9,11 +9,13 @@ import { userSchema } from "../../schemas";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import InputField from "./utils/InputField";
 import PhoneField from "./utils/PhoneField";
+import { useAppStore } from "../../store/useAppStore";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const {setAuth} = useAppStore();
 
   const {
     register,
@@ -47,7 +49,7 @@ const SignUp = () => {
 
   return (
     <div className="w-96 mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h1></h1>
+      <h1>Crea tu Cuenta</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <InputField
           label="Nombre"
@@ -103,6 +105,9 @@ const SignUp = () => {
           {loading ? "Registrando..." : "Ingresar"}
         </button>
       </form>
+      <button className="" onClick={setAuth}>
+        Ya tienes una Cuenta? Ingresa Aqui
+      </button>
     </div>
   );
 };

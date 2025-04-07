@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import { useAppStore } from "../../store/useAppStore";
 
 const Login = () => {
-  return (
-    <div >Login</div>
-  )
-}
+  const { setAuth } = useAppStore();
 
-export default Login
+  return (
+    <div>
+      <button className="" onClick={setAuth}>
+        Aun no tienes una cuenta? Crea Una
+      </button>
+    </div>
+  );
+};
+
+export default Login;
