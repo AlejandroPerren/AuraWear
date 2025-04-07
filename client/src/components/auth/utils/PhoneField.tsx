@@ -13,7 +13,7 @@ interface PhoneFieldProps {
 const PhoneField = ({ control, name, error }: PhoneFieldProps) => {
   return (
     <div className="relative">
-      <label className="absolute left-3  text-gray-500 transition-all z-10 duration-300 -top-2 text-sm bg-white px-1">
+      <label className="absolute left-3  text-gray-500 transition-all z-10 duration-300 font-bold -top-2 text-sm bg-white px-1">
         Teléfono
       </label>
       <Controller
@@ -23,9 +23,9 @@ const PhoneField = ({ control, name, error }: PhoneFieldProps) => {
           <PhoneInput
             {...field}
             country={"ar"}
-            inputClass="!w-full !border !pl-11 !border-gray-300 !rounded-md !py-5  focus:!border-blue-500 focus:!ring-blue-500"
+            inputClass="!w-full !border !pl-11 !border-gray-300 !rounded-md !py-5 !bg-transparent focus:!border-blue-500 focus:!ring-blue-500"
             containerClass="relative w-full"
-            buttonClass="!border-gray-300 !bg-white hover:!bg-gray-100"
+            buttonClass="!border-gray-300 !bg-transparent hover:!bg-gray-100"
             dropdownClass="!border-gray-300 !shadow-md"
           />
         )}

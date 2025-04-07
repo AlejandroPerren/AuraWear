@@ -26,7 +26,7 @@ const AuthPage = () => {
         >
 
           <div className={`${!isLogin && "bg-black opacity-50"} absolute inset-0`}></div>
-          <div className={`${isLogin && "hidden"} absolute`}>
+          <div className={`${isLogin && "hidden"} absolute `}>
           <SignUp />
           </div>
         </div>
@@ -38,7 +38,7 @@ const AuthPage = () => {
           style={{ backgroundImage: "url(/img/manAuth.jpg)" }}
         >
           <div className={`${isLogin && "bg-black opacity-50"} absolute inset-0`}></div>
-          <div className={`${!isLogin && "hidden"} absolute`}>
+          <div className={`${!isLogin && "hidden"} absolute `}>
           <Login />
           </div>
         </div>

@@ -36,3 +36,19 @@ export const userSchema = yup.object().shape({
   .string()
   .optional()
 });
+
+export const loginSchema = yup.object({
+  email: yup
+  .string()
+  .trim()
+  .email('Ingrese un correo válido')
+  .required('El correo electrónico es necesario'),
+password: yup
+  .string()
+  .min(8, 'La contraseña debe tener al menos 8 caracteres')
+  .matches(/[A-Z]/, 'Debe contener al menos una mayúscula')
+  .matches(/[a-z]/, 'Debe contener al menos una minúscula')
+  .matches(/[0-9]/, 'Debe contener al menos un número')
+  .matches(/[\W_]/, 'Debe contener al menos un carácter especial')
+  .required('La contraseña es necesaria'),
+})

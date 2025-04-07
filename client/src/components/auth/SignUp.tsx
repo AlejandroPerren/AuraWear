@@ -48,8 +48,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="w-96 mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h1>Crea tu Cuenta</h1>
+    <div className="w-96 mx-auto p-6 rounded-lg bg-white shadow-lg ">
+      <h1 className="text-2xl text-center font-extrabold my-4 text-gray-500">Crea tu Cuenta</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <InputField
           label="Nombre"
@@ -105,7 +105,7 @@ const SignUp = () => {
           {loading ? "Registrando..." : "Ingresar"}
         </button>
       </form>
-      <button className="" onClick={setAuth}>
+      <button className="text-gray-500 pt-4" onClick={setAuth}>
         Ya tienes una Cuenta? Ingresa Aqui
       </button>
     </div>

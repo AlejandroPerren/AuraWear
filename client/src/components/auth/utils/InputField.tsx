@@ -18,7 +18,7 @@ const InputField = ({ label, id, type = "text", placeholder, register, error }: 
     <div className="relative">
       <label
         htmlFor={id}
-        className={`absolute left-3 text-gray-500 transition-all duration-300
+        className={`absolute left-3 text-gray-500 transition-all font-bold duration-300
           ${isFocused ? "-top-2 text-sm bg-white px-1" : "top-3"}`}
       >
         {label}

@@ -9,3 +9,5 @@ export interface ApiResponse<T> {
 export type TUser = yup.InferType<typeof userSchema>;
 
 export type TSignUp = Omit<TUser, 'id' | 'role' | 'createdAt'>
+
+export type TLogin = Pick<TUser, 'email' | 'password'>
