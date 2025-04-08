@@ -31,7 +31,7 @@ export class AuthController implements IAuthController {
     @Body() user: IRegister
   ): Promise<IFunctionResponse<IRegister>> {
     if (!user) {
-      return { status: 400, message: "Invalid data" };
+      return { status: 400, message: "Datos Invalidos" };
     }
 
     // Hash Password
@@ -39,9 +39,10 @@ export class AuthController implements IAuthController {
 
     try {
       const response = await registerUserORM(user);
+      
       return {
         status: 201,
-        message: "User successfully created",
+        message: "Usuario Creado Exitosamente",
         data: response,
       };
     } catch (error) {
@@ -64,14 +65,14 @@ export class AuthController implements IAuthController {
     @Body() user: ILogin
   ): Promise<IFunctionResponse<ILogin>> {
     if (!user || !user.email || !user.password) {
-      return { status: 400, message: "Email and password are required" };
+      return { status: 400, message: "El Correo y la Contraseña son necesarios" };
     }
 
     try {
       const userData = await searchUserORM(user.email);
 
       if (!userData) {
-        return { status: 400, message: "Invalid credentials" };
+        return { status: 400, message: "Datos Incorrectos" };
       }
 
       const isValidPassword = await bcrypt.compare(
@@ -79,7 +80,7 @@ export class AuthController implements IAuthController {
         userData.password
       );
       if (!isValidPassword) {
-        return { status: 400, message: "Invalid credentials" };
+        return { status: 400, message: "Datos Incorrectos" };
       }
 
       const response = await loginUserORM(userData);
@@ -102,7 +103,7 @@ export class AuthController implements IAuthController {
       );
       return {
         status: 201,
-        message: "User successfully authenticated",
+        message: "Ingreso Correcto",
         data: response,
         token: token,
       };

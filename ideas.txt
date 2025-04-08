@@ -10,5 +10,4 @@ cargar imagen de publicidad admin
 
 chatbot
 
-
-agregar Token al Registro
+a las imagenes del auth agregarles mas o menos tamaño segundo cual esta seleccionada

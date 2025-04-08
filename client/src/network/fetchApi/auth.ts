@@ -23,3 +23,4 @@ export const LoginFetch = async (data: TLogin) => {
   );
   return response;
 };
+

@@ -28,20 +28,26 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await LoginFetch(data);
-      if (!response.success) {
-        toast.error(response.message);
+      if (!response.success || !response.data?.token) {
+        toast.error(response.message || "Error en el Ingreso");
         setLoading(false);
+        return;
       }
+  
+      localStorage.setItem("token", response.data.token); 
       toast.success(response.message);
       setLoading(false);
       reset();
-      navigate("/");
+      setTimeout(()=>{
+        navigate("/");
+      },1000)
     } catch (error) {
-      toast.error("Ocurrio un error al Registrarse");
-      console.log("Error en registro", error);
+      toast.error("Ocurrió un error al Ingresar");
+      console.log("Error en login", error);
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="w-96 mx-auto p-6 rounded-lg bg-white shadow-lg ">
