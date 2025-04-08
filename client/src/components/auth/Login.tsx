@@ -48,7 +48,7 @@ const Login = () => {
       <h1 className="text-2xl text-center font-extrabold my-4 text-gray-500">
         Ingresa tus Datos
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} data-aos="fade-top" data-aos-anchor-placement="top-center" className="space-y-6">
         <InputField
           label="Correo"
           id="email"

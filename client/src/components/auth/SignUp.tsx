@@ -48,7 +48,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="w-96 mx-auto p-6 rounded-lg bg-white shadow-lg ">
+    <div className="w-96 mx-auto p-6 rounded-lg bg-white shadow-lg " data-aos="fade-top" data-aos-anchor-placement="top-center">
       <h1 className="text-2xl text-center font-extrabold my-4 text-gray-500">Crea tu Cuenta</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <InputField

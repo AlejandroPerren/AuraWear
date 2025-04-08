@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { userSchema } from "../schemas";
+import { loginSchema, userSchema } from "../schemas";
 export interface ApiResponse<T> {
     success: boolean;
     data?: T;
@@ -10,4 +10,4 @@ export type TUser = yup.InferType<typeof userSchema>;
 
 export type TSignUp = Omit<TUser, 'id' | 'role' | 'createdAt'>
 
-export type TLogin = Pick<TUser, 'email' | 'password'>
+export type TLogin = yup.InferType<typeof loginSchema>

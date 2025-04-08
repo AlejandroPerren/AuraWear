@@ -4,7 +4,7 @@ import SignUp from "../components/auth/SignUp";
 import { useAppStore } from "../store/useAppStore";
 
 const AuthPage = () => {
-  const {isLogin} = useAppStore();
+  const { isLogin } = useAppStore();
   const [isVisible, setIsVisible] = useState(window.innerWidth >= 1024);
 
   useEffect(() => {
@@ -17,17 +17,22 @@ const AuthPage = () => {
   }, []);
 
   return (
-    <div className="grid lg:grid-cols-2 min-h-screen">
-
+    <div
+      className="grid lg:grid-cols-2 min-h-screen"
+      key={isLogin ? "login" : "signup"}
+    >
       {(isVisible || !isLogin) && (
         <div
           className="relative w-full h-screen flex items-center justify-center bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: "url(/img/womanAuth.jpg)" }}
         >
-
-          <div className={`${!isLogin && "bg-black opacity-50"} absolute inset-0`}></div>
-          <div className={`${isLogin && "hidden"} absolute `}>
-          <SignUp />
+          <div
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              !isLogin ? "bg-black opacity-50" : "opacity-0"
+            }`}
+          ></div>
+          <div data-aos="fade-left" className="absolute">
+            {!isLogin && <SignUp />}
           </div>
         </div>
       )}
@@ -37,9 +42,13 @@ const AuthPage = () => {
           className="relative w-full h-screen flex items-center justify-center bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: "url(/img/manAuth.jpg)" }}
         >
-          <div className={`${isLogin && "bg-black opacity-50"} absolute inset-0`}></div>
-          <div className={`${!isLogin && "hidden"} absolute `}>
-          <Login />
+          <div
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              isLogin ? "bg-black opacity-50" : "opacity-0"
+            }`}
+          ></div>
+          <div data-aos="fade-right" className="absolute">
+            {isLogin && <Login />}
           </div>
         </div>
       )}

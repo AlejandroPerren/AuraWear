@@ -12,7 +12,7 @@ interface PhoneFieldProps {
 
 const PhoneField = ({ control, name, error }: PhoneFieldProps) => {
   return (
-    <div className="relative">
+    <div className="relative" data-aos="fade-left" >
       <label className="absolute left-3  text-gray-500 transition-all z-10 duration-300 font-bold -top-2 text-sm bg-white px-1">
         Teléfono
       </label>

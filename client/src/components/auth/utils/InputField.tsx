@@ -15,7 +15,7 @@ const InputField = ({ label, id, type = "text", placeholder, register, error }: 
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative" data-aos="fade-left" >
       <label
         htmlFor={id}
         className={`absolute left-3 text-gray-500 transition-all font-bold duration-300
