@@ -15,3 +15,5 @@ a las imagenes del auth agregarles mas o menos tamaño segundo cual esta selecci
 reducir tamaño buscador en el nav asi queda espacio para el logo con la tablet
 
 arreglar que si hago click fuera de los modales se cierren y añadirle animaciones
+
+revisar swagger para dejar estetica la documentacion

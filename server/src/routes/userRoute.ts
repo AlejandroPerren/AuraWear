@@ -1,5 +1,6 @@
 import express, {Request, Response} from "express"
 import { UsersController } from "../controllers/users/UsersController"
+import { IRegister } from "../types/index.types";
 
 
 const userRouter = express.Router()
@@ -74,6 +75,39 @@ userRouter
               message: "Internal server error",
             });
         }
-    });
+    })
+    .post(
+      "/createAdmin",
+      async (req: Request, res: Response): Promise<void> => {
+          try {
+            const { name, email, password, address, phone }: IRegister = req.body;
+      
+            const response = await controller.createAdmin({
+              name,
+              email,
+              password,
+              address,
+              phone,
+            });
+      
+            if (response && response.status) {
+              res.status(response.status).json(response);
+              return;
+            }
+      
+            res.status(500).json({
+              status: 500,
+              message: "Error registering the user",
+            });
+          } catch (error) {
+            console.error("Error in Router:", error);
+            res.status(500).json({
+              status: 500,
+              message: "Internal server error",
+            });
+          }
+        }
+    )
+
 
 export default userRouter;

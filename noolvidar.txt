@@ -1,0 +1,2 @@
+el home lo puede ver cualquiera 
+hay formulario de crear admin, ponerle middleware a los usuarios y a eso

@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { IUser } from "../../types/index.types";
+import { IRegister, IUser } from "../../types/index.types";
 import { ParamsDictionary } from "express-serve-static-core";
 const prisma = new PrismaClient();
 /**
@@ -52,3 +52,23 @@ export const deleteUserORM = async (id: number): Promise<null> => {
     throw new Error("Error in ORM " + error);
   }
 };
+
+
+export const CreateAdminORM = async (user: IRegister) => {
+  try {
+    const newUser = await prisma.user.create({
+      data: {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        address: user.address ,
+        phone: user.phone ,
+        role: "admin",
+      },
+    });
+    return newUser;
+  } catch (error) {
+    throw new Error("Error in ORM " + error);
+  }
+};
+

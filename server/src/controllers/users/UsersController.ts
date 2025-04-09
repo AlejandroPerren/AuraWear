@@ -1,8 +1,14 @@
-import { Get, Route, Tags, Query, Delete } from "tsoa";
+import { Get, Route, Tags, Query, Delete, Post, Body } from "tsoa";
 import { IUsersController } from "../interfaces";
-import { deleteUserORM, listOfUsersORM, searchUserORM } from "../../domain/orm/users.orm";
+import {
+  CreateAdminORM,
+  deleteUserORM,
+  listOfUsersORM,
+  searchUserORM,
+} from "../../domain/orm/users.orm";
 import { IFunctionResponse } from "../../types/functions.types";
-import { IUser } from "../../types/index.types";
+import { IRegister, IUser } from "../../types/index.types";
+import bcrypt from "bcrypt";
 
 /**
  * UsersController handles user-related operations.
@@ -88,6 +94,40 @@ export class UsersController implements IUsersController {
       return {
         status: 500,
         message: "Error deleting user",
+        error: error instanceof Error ? error.message : "Unknown error",
+      };
+    }
+  }
+
+  /**
+   * Registers a new Admin.
+   * @param {IRegister} user - User data.
+   * @returns {Promise<IFunctionResponse<IRegister>>} - Registration result.
+   */
+  @Post("createAdmin")
+  public async createAdmin(
+    @Body() user: IRegister
+  ): Promise<IFunctionResponse<IRegister>> {
+    if (!user) {
+      return { status: 400, message: "Datos Invalidos" };
+    }
+
+    // Hash Password
+    user.password = bcrypt.hashSync(user.password, 10);
+
+    try {
+      const response = await CreateAdminORM(user);
+
+      return {
+        status: 201,
+        message: "Usuario Creado Exitosamente",
+        data: response,
+      };
+    } catch (error) {
+      console.error("Error in Register Controller", error);
+      return {
+        status: 500,
+        message: "Registration error",
         error: error instanceof Error ? error.message : "Unknown error",
       };
     }

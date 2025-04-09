@@ -1,15 +1,15 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-const AdminLayout = () => {
+const UserLayout = () => {
   return (
     <div>
-      
-      <main>
+        
+        <main>
         <Outlet />
       </main>
     </div>
   )
 }
 
-export default AdminLayout
+export default UserLayout

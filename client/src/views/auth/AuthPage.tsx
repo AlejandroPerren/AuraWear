@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import Login from "../components/auth/Login";
-import SignUp from "../components/auth/SignUp";
-import { useAppStore } from "../store/useAppStore";
+import { useAppStore } from "../../store/useAppStore";
+import SignUp from "../../components/auth/SignUp";
+import Login from "../../components/auth/Login";
+
 
 const AuthPage = () => {
   const { isLogin } = useAppStore();

@@ -4,24 +4,29 @@ import { ReactNode } from "react";
 
 interface ProtectedRouteProps {
   children: ReactNode;
-  adminOnly?: boolean;
 }
 
-const ProtectedRoute = ({ children, adminOnly = false }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { isAdmin, isLogged } = useAppStore();
   const location = useLocation();
 
-  const isAuthPage = location.pathname.startsWith("/auth");
+  const path = location.pathname;
+  const loggedIn = isLogged();
+  const admin = isAdmin();
 
-  if (isAuthPage && isLogged()) {
-    return <Navigate to="/" replace />;
-  }
+  const isAuthPage = path.startsWith("/auth");
+  const isAdminRoute = path.startsWith("/admin");
+  const isUserRoute = path.startsWith("/users");
 
-  if (!isLogged() && !isAuthPage) {
+  if (!loggedIn && (isAdminRoute || isUserRoute)) {
     return <Navigate to="/auth" replace />;
   }
 
-  if (adminOnly && !isAdmin()) {
+  if (loggedIn && isAuthPage) {
+    return <Navigate to={admin ? "/admin" : "/"} replace />;
+  }
+
+  if (isAdminRoute && !admin) {
     return <Navigate to="/" replace />;
   }
 

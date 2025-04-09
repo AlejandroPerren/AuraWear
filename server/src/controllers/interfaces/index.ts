@@ -24,6 +24,8 @@ export interface IUsersController {
   //Delete User By Id
   deleteUserByID(id: number): Promise<IFunctionResponse<null>>;
 
+  createAdmin(user: IRegister): Promise<IFunctionResponse<IRegister>>;
+
 }
 
 //CRUD Interface of Product Controller

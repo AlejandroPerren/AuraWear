@@ -19,6 +19,7 @@ export const registerUserORM = async (user: IRegister) => {
         password: user.password,
         address: user.address ,
         phone: user.phone ,
+        role: "admin",
       },
     });
     return newUser;
