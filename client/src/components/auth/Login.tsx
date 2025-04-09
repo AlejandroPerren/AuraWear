@@ -40,7 +40,7 @@ const Login = () => {
       reset();
       setTimeout(()=>{
         navigate("/");
-      },1000)
+      },2000)
     } catch (error) {
       toast.error("Ocurrió un error al Ingresar");
       console.log("Error en login", error);

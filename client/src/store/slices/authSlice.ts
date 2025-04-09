@@ -12,6 +12,7 @@ export type AuthSliceType = {
   token: string | null;
   isLogged: () => boolean;
   isAdmin: () => boolean;
+  Logout: () => void;
 };
 
 export const authSlice: StateCreator<AuthSliceType> = (set, get) => ({
@@ -34,4 +35,8 @@ export const authSlice: StateCreator<AuthSliceType> = (set, get) => ({
       return false;
     }
   },
+  Logout: () => {
+    localStorage.removeItem("token")
+    window.location.reload(); 
+  }
 });

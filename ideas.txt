@@ -11,3 +11,7 @@ cargar imagen de publicidad admin
 chatbot
 
 a las imagenes del auth agregarles mas o menos tamaño segundo cual esta seleccionada
+
+reducir tamaño buscador en el nav asi queda espacio para el logo con la tablet
+
+arreglar que si hago click fuera de los modales se cierren y añadirle animaciones

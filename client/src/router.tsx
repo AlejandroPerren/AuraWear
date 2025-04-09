@@ -27,6 +27,12 @@ export const router = createHashRouter([
   {
     path: "auth",
     element: <AuthLayout />,
-    children: [{ index: true, element: <AuthPage /> }],
+    children: [{ index: true, element:(
+      <Suspense fallback={<Loading/>}>
+      <ProtectedRoute>
+        <AuthPage />
+      </ProtectedRoute>
+    </Suspense>
+    ) }],
   },
 ]);

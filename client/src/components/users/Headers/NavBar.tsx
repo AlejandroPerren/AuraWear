@@ -36,7 +36,7 @@ const NavBar: React.FC = () => {
 
       {/* Menú responsive */}
       {menuOpen && (
-        <div className="md:hidden flex flex-col items-center bg-gray-900 py-4">
+        <div className="md:hidden flex flex-col items-center bg-black border-t-2 transition-all duration-300 py-4">
           <NavLinks
             sections={navSections}
             className="flex flex-col items-center"
