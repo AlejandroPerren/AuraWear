@@ -153,6 +153,67 @@
 				"type": "object",
 				"additionalProperties": true
 			},
+			"Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"email",
+					"password",
+					"address",
+					"phone"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_User.role-or-createdAt-or-id_": {
+				"$ref": "#/components/schemas/Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"IRegister": {
+				"$ref": "#/components/schemas/Omit_User.role-or-createdAt-or-id_"
+			},
+			"IFunctionResponse_IRegister_": {
+				"properties": {
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/IRegister"
+					},
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
 			"Pick_Category.Exclude_keyofCategory.id__": {
 				"properties": {
 					"name": {
@@ -216,67 +277,6 @@
 						},
 						"type": "array",
 						"nullable": true
-					},
-					"token": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"status",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					},
-					"address": {
-						"type": "string"
-					},
-					"phone": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"email",
-					"password",
-					"address",
-					"phone"
-				],
-				"type": "object",
-				"description": "From T, pick a set of properties whose keys are in the union K"
-			},
-			"Omit_User.role-or-createdAt-or-id_": {
-				"$ref": "#/components/schemas/Pick_User.Exclude_keyofUser.role-or-createdAt-or-id__",
-				"description": "Construct a type with the properties of T except for those in type K."
-			},
-			"IRegister": {
-				"$ref": "#/components/schemas/Omit_User.role-or-createdAt-or-id_"
-			},
-			"IFunctionResponse_IRegister_": {
-				"properties": {
-					"status": {
-						"type": "number",
-						"format": "double"
-					},
-					"message": {
-						"type": "string"
-					},
-					"error": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/IRegister"
 					},
 					"token": {
 						"type": "string"
@@ -436,6 +436,41 @@
 						"example": 1
 					}
 				]
+			}
+		},
+		"/api/createAdmin": {
+			"post": {
+				"operationId": "CreateAdmin",
+				"responses": {
+					"200": {
+						"description": "- Registration result.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IFunctionResponse_IRegister_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Registers a new Admin.",
+				"tags": [
+					"UsersController"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- User data.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IRegister",
+								"description": "- User data."
+							}
+						}
+					}
+				}
 			}
 		},
 		"/api/category": {

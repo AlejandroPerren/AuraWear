@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../../generated/prisma";
 import { IRegister, IUser } from "../../types/index.types";
-import { ParamsDictionary } from "express-serve-static-core";
+
 const prisma = new PrismaClient();
 /**
  * Retrieves a list of all users from the database.

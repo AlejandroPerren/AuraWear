@@ -1,4 +1,4 @@
-import { User, Category, Product, Order, OrderDetail } from "@prisma/client";
+import { User, Category, Product, Order, OrderDetail } from "../../generated/prisma";
 
 export type IUser = User;
 export type ICategory = Omit<Category, "id">;
@@ -14,4 +14,5 @@ export type ICreateProduct = Omit<IProduct, "createdAt"> & {
     id?: number;
     price: number | string; 
     images: string[];
+    categoryIds?: number[];
   };
