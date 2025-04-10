@@ -1,5 +1,5 @@
 import { PrismaClient } from "../../../generated/prisma";
-import { ICreateProduct } from "../../types/index.types";
+import { ICreateProduct, IProduct } from "../../types/index.types";
 
 const prisma = new PrismaClient();
 
@@ -23,21 +23,22 @@ export const createProductORM = async (product: ICreateProduct) => {
               create: product.images.map((url) => ({ url })),
             }
           : undefined,
-        categories: product.categoryIds && product.categoryIds.length > 0
-          ? {
-              create: product.categoryIds.map((categoryId) => ({
-                category: {
-                  connect: { id: categoryId },
-                },
-              })),
-            }
-          : undefined, 
+        categories:
+          product.categoryIds && product.categoryIds.length > 0
+            ? {
+                create: product.categoryIds.map((categoryId) => ({
+                  category: {
+                    connect: { id: categoryId },
+                  },
+                })),
+              }
+            : undefined,
       },
       include: {
         images: true,
       },
     });
-    
+
     if (product.categoryIds && product.categoryIds.length > 0) {
       await prisma.productCategory.createMany({
         data: product.categoryIds.map((catId) => ({
@@ -50,5 +51,38 @@ export const createProductORM = async (product: ICreateProduct) => {
     return newProduct;
   } catch (error) {
     throw new Error("Error al crear el producto: " + error);
+  }
+};
+
+export const getAllProductsORM = async (): Promise<IProduct[] | null> => {
+  try {
+    const response = await prisma.product.findMany();
+    return response.length > 0 ? response : null;
+  } catch (error) {
+    throw new Error("Error in ORM" + error);
+  }
+};
+
+export const getOneProductORM = async (
+  id: number
+): Promise<IProduct | null> => {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id },
+    });
+    return product || null;
+  } catch (error) {
+    throw new Error("Error in ORM " + error);
+  }
+};
+
+export const deleteProductORM = async (id: number): Promise<null> => {
+  try {
+    await prisma.product.delete({
+      where: { id },
+    });
+    return null;
+  } catch (error) {
+    throw new Error("Error in ORM " + error);
   }
 };

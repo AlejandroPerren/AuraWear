@@ -19,7 +19,7 @@ const secretKey = process.env.TOKEN_JSON_KEY;
  * AuthController handles user authentication and registration.
  */
 @Route("/api/auth")
-@Tags("AuthController")
+@Tags("Auth")
 export class AuthController implements IAuthController {
   /**
    * Registers a new user.

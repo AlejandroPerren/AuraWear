@@ -14,7 +14,7 @@ import bcrypt from "bcrypt";
  * UsersController handles user-related operations.
  */
 @Route("/api")
-@Tags("UsersController")
+@Tags("Users")
 export class UsersController implements IUsersController {
   /**
    * Retrieves a list of all users.
