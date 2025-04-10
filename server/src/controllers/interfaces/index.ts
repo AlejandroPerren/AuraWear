@@ -35,7 +35,7 @@ export interface IProductController {
 
   getProductById(id: number): Promise<IFunctionResponse<IProduct[] | null>>;
 
-  createProduct(product: IProduct): Promise<IFunctionResponse<ICreateProduct>>;
+  createProduct(product: ICreateProduct): Promise<IFunctionResponse<IProduct>>;
 
   updateProduct(productId:string , product: IProduct): Promise<IFunctionResponse<ICreateProduct>>;
 
