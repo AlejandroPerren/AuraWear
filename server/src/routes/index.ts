@@ -3,6 +3,7 @@ import authRouter from "./authRouter";
 import { UsersController } from "../controllers/users/UsersController";
 import userRouter from "./userRoute";
 import categoryRouter from "./categoryRouter";
+import productRouter from "./productRouter";
 
 const server = express();
 const rootRouter = express.Router();
@@ -37,6 +38,9 @@ server.use("/users", userRouter);
 
 // Category Routes
 server.use("/category", categoryRouter);
+
+// Products Routes
+server.use("/products", productRouter)
 
 
 export default server;

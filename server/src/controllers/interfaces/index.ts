@@ -33,11 +33,11 @@ export interface IProductController {
 
   getAllProducts(): Promise<IFunctionResponse<IProduct[] | null>>;
 
-  getProductById(id: number): Promise<IFunctionResponse<IProduct[] | null>>;
+  getProductById(id: number): Promise<IFunctionResponse<IProduct | null>>;
 
   createProduct(product: ICreateProduct): Promise<IFunctionResponse<IProduct>>;
 
-  updateProduct(productId:string , product: IProduct): Promise<IFunctionResponse<ICreateProduct>>;
+  updateProduct(productId:number , product: ICreateProduct): Promise<IFunctionResponse<IProduct>>;
 
   deleteProductById(id: number): Promise<IFunctionResponse<null>>;
 }

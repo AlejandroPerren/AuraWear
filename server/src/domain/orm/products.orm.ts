@@ -86,3 +86,59 @@ export const deleteProductORM = async (id: number): Promise<null> => {
     throw new Error("Error in ORM " + error);
   }
 };
+
+export const updateProductORM = async (id: number, product: ICreateProduct) => {
+  try {
+    const updatedProduct = await prisma.product.update({
+      where: { id },
+      data: {
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        stock: product.stock || 0,
+      },
+    });
+
+    if (product.images) {
+      await prisma.productImage.deleteMany({
+        where: { productId: id },
+      });
+
+      await prisma.productImage.createMany({
+        data: product.images.map((url) => ({
+          url,
+          productId: id,
+        })),
+      });
+    }
+
+    if (product.categoryIds && product.categoryIds.length > 0) {
+      await prisma.productCategory.deleteMany({
+        where: { productId: id },
+      });
+
+      await prisma.productCategory.createMany({
+        data: product.categoryIds.map((categoryId) => ({
+          productId: id,
+          categoryId,
+        })),
+      });
+    }
+
+    const result = await prisma.product.findUnique({
+      where: { id },
+      include: {
+        images: true,
+        categories: {
+          include: {
+            category: true,
+          },
+        },
+      },
+    });
+
+    return result;
+  } catch (error) {
+    throw new Error("Error al actualizar el producto: " + error);
+  }
+};
