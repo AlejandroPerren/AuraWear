@@ -174,25 +174,9 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  name: 'name',
-  email: 'email',
-  password: 'password',
-  address: 'address',
-  phone: 'phone'
-};
-
-exports.Prisma.ProductOrderByRelevanceFieldEnum = {
-  name: 'name',
-  description: 'description'
-};
-
-exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
-  name: 'name'
-};
-
-exports.Prisma.ProductImageOrderByRelevanceFieldEnum = {
-  url: 'url'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 exports.Role = exports.$Enums.Role = {
   customer: 'customer',

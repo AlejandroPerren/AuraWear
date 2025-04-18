@@ -147,25 +147,9 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  name: 'name',
-  email: 'email',
-  password: 'password',
-  address: 'address',
-  phone: 'phone'
-};
-
-exports.Prisma.ProductOrderByRelevanceFieldEnum = {
-  name: 'name',
-  description: 'description'
-};
-
-exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
-  name: 'name'
-};
-
-exports.Prisma.ProductImageOrderByRelevanceFieldEnum = {
-  url: 'url'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 exports.Role = exports.$Enums.Role = {
   customer: 'customer',
@@ -226,18 +210,17 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "mysql",
-  "postinstall": false,
+  "activeProvider": "postgresql",
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "postgresql://postgres.hdpfshvgrdmytandiwli:@TWF+k+!ks6nVGB@aws-0-sa-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  name      String\n  email     String   @unique\n  password  String\n  address   String\n  phone     String\n  role      Role     @default(customer)\n  orders    Order[]\n  createdAt DateTime @default(now())\n}\n\nmodel ProductCategory {\n  product   Product @relation(fields: [productId], references: [id])\n  productId Int\n\n  category   Category @relation(fields: [categoryId], references: [id])\n  categoryId Int\n\n  @@id([productId, categoryId])\n}\n\nmodel Product {\n  id           Int               @id @default(autoincrement())\n  name         String\n  description  String\n  price        Decimal\n  stock        Int               @default(0)\n  images       ProductImage[]\n  categories   ProductCategory[]\n  orderDetails OrderDetail[]\n  createdAt    DateTime          @default(now())\n}\n\nmodel Category {\n  id       Int               @id @default(autoincrement())\n  name     String            @unique\n  products ProductCategory[]\n}\n\nmodel ProductImage {\n  id        Int     @id @default(autoincrement())\n  url       String\n  productId Int\n  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)\n}\n\nmodel Order {\n  id           Int           @id @default(autoincrement())\n  userId       Int\n  user         User          @relation(fields: [userId], references: [id])\n  total        Decimal\n  status       OrderStatus   @default(pending)\n  orderDetails OrderDetail[]\n  createdAt    DateTime      @default(now())\n}\n\nmodel OrderDetail {\n  id        Int     @id @default(autoincrement())\n  orderId   Int\n  productId Int\n  quantity  Int\n  subtotal  Decimal\n  order     Order   @relation(fields: [orderId], references: [id])\n  product   Product @relation(fields: [productId], references: [id])\n}\n\nenum Role {\n  customer\n  admin\n}\n\nenum OrderStatus {\n  pending\n  paid\n  shipped\n  canceled\n}\n",
-  "inlineSchemaHash": "c3e96c90cc429f52da7e7d12480d2811c038175e9d06dfc63f31dd284b6c83d1",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  name      String\n  email     String   @unique\n  password  String\n  address   String\n  phone     String\n  role      Role     @default(customer)\n  orders    Order[]\n  createdAt DateTime @default(now())\n}\n\nmodel ProductCategory {\n  product   Product @relation(fields: [productId], references: [id])\n  productId Int\n\n  category   Category @relation(fields: [categoryId], references: [id])\n  categoryId Int\n\n  @@id([productId, categoryId])\n}\n\nmodel Product {\n  id           Int               @id @default(autoincrement())\n  name         String\n  description  String\n  price        Decimal\n  stock        Int               @default(0)\n  images       ProductImage[]\n  categories   ProductCategory[]\n  orderDetails OrderDetail[]\n  createdAt    DateTime          @default(now())\n}\n\nmodel Category {\n  id       Int               @id @default(autoincrement())\n  name     String            @unique\n  products ProductCategory[]\n}\n\nmodel ProductImage {\n  id        Int     @id @default(autoincrement())\n  url       String\n  productId Int\n  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)\n}\n\nmodel Order {\n  id           Int           @id @default(autoincrement())\n  userId       Int\n  user         User          @relation(fields: [userId], references: [id])\n  total        Decimal\n  status       OrderStatus   @default(pending)\n  orderDetails OrderDetail[]\n  createdAt    DateTime      @default(now())\n}\n\nmodel OrderDetail {\n  id        Int     @id @default(autoincrement())\n  orderId   Int\n  productId Int\n  quantity  Int\n  subtotal  Decimal\n  order     Order   @relation(fields: [orderId], references: [id])\n  product   Product @relation(fields: [productId], references: [id])\n}\n\nenum Role {\n  customer\n  admin\n}\n\nenum OrderStatus {\n  pending\n  paid\n  shipped\n  canceled\n}\n",
+  "inlineSchemaHash": "a65918dac514716f16ed53c0b3b4693cde3bd79c2efcffd086a149ab1b88ba79",
   "copyEngine": true
 }
 
