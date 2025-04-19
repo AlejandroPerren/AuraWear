@@ -12,23 +12,27 @@ const prisma = new PrismaClient();
  */
 export const createProductORM = async (product: ICreateProduct) => {
   try {
+    const price = Number(product.price);
+    const stock = Number(product.stock) || 0;
+    const categoryIds = product.categoryIds?.map((id) => Number(id)) || [];
+
     const newProduct = await prisma.product.create({
       data: {
         name: product.name,
         description: product.description,
-        price: product.price,
-        stock: product.stock || 0,
+        price,
+        stock,
         images: product.images
           ? {
               create: product.images.map((url) => ({ url })),
             }
           : undefined,
         categories:
-          product.categoryIds && product.categoryIds.length > 0
+          categoryIds.length > 0
             ? {
-                create: product.categoryIds.map((categoryId) => ({
+                create: categoryIds.map((id) => ({
                   category: {
-                    connect: { id: categoryId },
+                    connect: { id },
                   },
                 })),
               }
@@ -36,23 +40,20 @@ export const createProductORM = async (product: ICreateProduct) => {
       },
       include: {
         images: true,
+        categories: {
+          include: {
+            category: true,
+          },
+        },
       },
     });
 
-    if (product.categoryIds && product.categoryIds.length > 0) {
-      await prisma.productCategory.createMany({
-        data: product.categoryIds.map((catId) => ({
-          productId: newProduct.id,
-          categoryId: catId,
-        })),
-      });
-    }
-
     return newProduct;
-  } catch (error) {
-    throw new Error("Error al crear el producto: " + error);
+  } catch (error: any) {
+    throw new Error(`Error al crear el producto: ${error}`);
   }
 };
+
 
 export const getAllProductsORM = async (): Promise<IProduct[] | null> => {
   try {
