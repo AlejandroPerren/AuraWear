@@ -1,7 +1,7 @@
 import { Post, Route, Tags, Body, Get, Delete, Path, Request } from "tsoa";
 import { IProductController } from "../interfaces";
 import { IFunctionResponse } from "../../types/functions.types";
-import { IProduct, ICreateProduct } from "../../types/index.types";
+import { IProduct, ICreateProduct, IProductFull } from "../../types/index.types";
 import {
   createProductORM,
   deleteProductORM,
@@ -49,7 +49,7 @@ export class ProductController implements IProductController {
     }
   }
 
-  public async getAllProducts(): Promise<IFunctionResponse<IProduct[] | null>> {
+  public async getAllProducts(): Promise<IFunctionResponse<IProductFull[] | null>> {
     try {
       const products = await getAllProductsORM();
       return {
@@ -71,7 +71,7 @@ export class ProductController implements IProductController {
 
   public async getProductById(
     id: number
-  ): Promise<IFunctionResponse<IProduct | null>> {
+  ): Promise<IFunctionResponse<IProductFull | null>> {
     try {
       const product = await getOneProductORM(id);
       return {

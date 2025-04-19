@@ -5,6 +5,7 @@ import {
   IProduct,
   ICreateProduct,
   ICategory,
+  IProductFull,
 } from "../../types/index.types";
 import { IFunctionResponse } from "../../types/functions.types";
 
@@ -31,9 +32,9 @@ export interface IUsersController {
 //CRUD Interface of Product Controller
 export interface IProductController {
 
-  getAllProducts(): Promise<IFunctionResponse<IProduct[] | null>>;
+  getAllProducts(): Promise<IFunctionResponse<IProductFull[] | null>>;
 
-  getProductById(id: number): Promise<IFunctionResponse<IProduct | null>>;
+  getProductById(id: number): Promise<IFunctionResponse<IProductFull | null>>;
 
   createProduct(product: ICreateProduct): Promise<IFunctionResponse<IProduct>>;
 

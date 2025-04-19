@@ -1,5 +1,9 @@
 import { PrismaClient } from "../../../generated/prisma";
-import { ICreateProduct, IProduct } from "../../types/index.types";
+import {
+  ICreateProduct,
+  IProduct,
+  IProductFull,
+} from "../../types/index.types";
 
 const prisma = new PrismaClient();
 
@@ -54,10 +58,19 @@ export const createProductORM = async (product: ICreateProduct) => {
   }
 };
 
-
-export const getAllProductsORM = async (): Promise<IProduct[] | null> => {
+export const getAllProductsORM = async (): Promise<IProductFull[] | null> => {
   try {
-    const response = await prisma.product.findMany();
+    const response = await prisma.product.findMany({
+      include: {
+        images: true,
+        categories: {
+          include: {
+            category: true,
+          },
+        },
+        orderDetails: true,
+      },
+    });
     return response.length > 0 ? response : null;
   } catch (error) {
     throw new Error("Error in ORM" + error);
@@ -66,10 +79,19 @@ export const getAllProductsORM = async (): Promise<IProduct[] | null> => {
 
 export const getOneProductORM = async (
   id: number
-): Promise<IProduct | null> => {
+): Promise<IProductFull | null> => {
   try {
     const product = await prisma.product.findUnique({
       where: { id },
+      include: {
+        images: true,
+        categories: {
+          include: {
+            category: true,
+          },
+        },
+        orderDetails: true,
+      },
     });
     return product || null;
   } catch (error) {
