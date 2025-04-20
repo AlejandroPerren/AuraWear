@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import NavInfo from "../components/users/Headers/NavInfo";
 import NavBar from "../components/users/Headers/NavBar";
+import ListOfProducts from "../components/shared/ListOfProducts";
 
 
 const MainLayout = () => {
@@ -20,6 +21,7 @@ const MainLayout = () => {
       <main>
         <Outlet />
       </main>
+      <ListOfProducts/>
     </div>
   );
 };

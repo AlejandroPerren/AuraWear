@@ -1,2 +1,4 @@
 el home lo puede ver cualquiera 
 hay formulario de crear admin, ponerle middleware a los usuarios y a eso
+implementar clases abstractas que reduzcan el codigo como buscar un usuario antes de algo(crearlo o eliminarlo, o lo que fuera)
+solucionar el delete products y probar el update
