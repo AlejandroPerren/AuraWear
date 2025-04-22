@@ -13,3 +13,10 @@ https://pixabay.com/es/photos/modelo-mujer-piel-cabello-8881740/
 Principales:
 - https://pixabay.com/es/photos/hombre-moda-modelo-pose-retrato-9182458/
 - https://pixabay.com/es/photos/mujer-moda-retrato-modelo-pose-6771288/
+
+
+
+https://www.creative-tim.com/twcomponents/component/free-tailwind-css-product-categories-component
+
+
+https://www.creative-tim.com/twcomponents/component/e-commerce-product-page

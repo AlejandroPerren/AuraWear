@@ -6,7 +6,7 @@ import NavBar from "../components/users/Headers/NavBar";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="overflow-hidden ">
       <NavInfo />
 
       <NavBar />
@@ -18,7 +18,7 @@ const MainLayout = () => {
         />
       </div>
 
-      <main>
+      <main className="w-[90%] mx-auto">
         <Outlet />
       </main>
       

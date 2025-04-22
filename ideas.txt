@@ -17,3 +17,7 @@ reducir tamaño buscador en el nav asi queda espacio para el logo con la tablet
 arreglar que si hago click fuera de los modales se cierren y añadirle animaciones
 
 revisar swagger para dejar estetica la documentacion
+
+Subir por color y talle segun producto
+
+añadir descuentos

@@ -30,7 +30,7 @@ const ListOfProducts = () => {
   }, []);
 
   return (
-    <div>
+    <div className="pt-10 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-12">
       {listProducts.length > 0 ? (
         listProducts.map((product) => {
           const { id, name, price, images } = product;
