@@ -21,3 +21,7 @@ revisar swagger para dejar estetica la documentacion
 Subir por color y talle segun producto
 
 añadir descuentos
+
+
+Optimizar los OnSubmit de los Formularios?(uno reutilizable)
+

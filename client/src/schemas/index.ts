@@ -86,3 +86,8 @@ export const productSchema = yup.object({
     .required(),
   orderDetails: yup.array().of(yup.mixed()).required(),
 });
+
+export const categorySchema = yup.object({
+  id: yup.number(),
+  name: yup.string().required(),
+});

@@ -10,6 +10,7 @@ import AdminMainPage from "./views/admin/AdminMainPage";
 import AuthPage from "./views/auth/AuthPage";
 import UserLayout from "./layouts/UserLayout";
 import UsersPage from "./views/users/UsersMainPage";
+import CreateProduct from "./views/admin/CreateProduct";
 
 export const router = createHashRouter([
   {
@@ -55,6 +56,16 @@ export const router = createHashRouter([
             </ProtectedRoute>
           </Suspense>
         ),
+      },
+      {
+        path: "crear-Producto",
+        element: (
+          <Suspense fallback={<Loading/>}>
+            <ProtectedRoute>
+              <CreateProduct/>
+            </ProtectedRoute>
+          </Suspense>
+        )
       },
     ],
   },

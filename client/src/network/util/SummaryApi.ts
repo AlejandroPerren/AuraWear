@@ -30,6 +30,18 @@ const summaryApi = {
         url: `${backendDomain}products`,
         method: 'delete'
     },
+    CreateCategories: {
+        url: `${backendDomain}category`,
+        method: 'post'
+    },
+    GetAllCategories: {
+        url: `${backendDomain}category`,
+        method: 'get'
+    },
+    DeleteCategories: {
+        url: `${backendDomain}category`,
+        method: 'delete'
+    },
 
 
 }
