@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { TCategory } from "../../types";
 import { getAllCategories } from "../../network/fetchApi/category";
+import { useAppStore } from "../../store/useAppStore";
 
 const ListOfCategories = () => {
   const [ListOfCategories, setListOfCategories] = useState<TCategory[]>([]);
+  const [isCreateCategory, setIsCreateCategory] = useState<boolean>(false)
+  const { isAdmin } = useAppStore();
+
+  //Handles Delete y mas opciones
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,6 +51,13 @@ const ListOfCategories = () => {
         <p className="text-gray-500 text-center w-full">
           No hay productos disponibles
         </p>
+      )}
+      {isAdmin && (
+        <form className="bg-sky-300 rounded-full px-4 py-1 text-sm font-medium text-white shadow-md hover:bg-sky-400 transition-all duration-200">
+          <button className="" onClick={()=> setIsCreateCategory(true)}>+</button>
+          <input className={`${!isCreateCategory && ('hidden')} `}/>
+          {/* Hacer un On Change */}
+        </form>
       )}
     </div>
   );
