@@ -70,7 +70,7 @@ export const router = createHashRouter([
     ],
   },
   {
-    path: "users",
+    path: "usuario",
     element: <UserLayout />,
     children: [
       {
